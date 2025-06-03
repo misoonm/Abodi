@@ -91,7 +91,7 @@ ul {
 }
 
 .main-nav .nav-links .dropdown-content li a {
-    color: #333;
+    color: #A70000;
     padding: 12px 16px;
     display: block;
     text-align: right; /* لغة عربية */
@@ -204,7 +204,7 @@ section {
 section h2 {
     text-align: center;
     margin-bottom: 30px;
-    color: #a0522d; /* لون العقيق */
+    color: #A70000; /* لون العقيق */
     font-size: 28px;
     position: relative;
 }
