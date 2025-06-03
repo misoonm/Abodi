@@ -48,9 +48,24 @@ ul {
     align-items: center;
 }
 
+/* **تعديل هنا: لاسم الموقع بجانب الشعار** */
+.logo {
+    display: flex; /* يجعل العناصر بداخله تترتب في سطر واحد */
+    align-items: center; /* لمحاذاة العناصر عموديًا في المنتصف */
+    gap: 15px; /* لإضافة مسافة بين الشعار واسم الموقع (يمكنك تغيير القيمة) */
+}
+
 .logo img {
     height: 70px; /* ضبط ارتفاع الشعار */
 }
+
+.logo h1 {
+    font-size: 28px; /* حجم الخط لاسم الموقع */
+    color: #A70000; /* لون مميز لاسم الموقع */
+    margin: 0; /* إزالة الهامش الافتراضي لـ h1 لمنع الإزاحات غير المرغوبة */
+    white-space: nowrap; /* يمنع النص من الالتفاف إلى سطر جديد */
+}
+/* **نهاية التعديل هنا** */
 
 .main-nav .dropdown-menu-toggle {
     display: none; /* إخفاؤه في شاشات سطح المكتب */
@@ -527,6 +542,19 @@ section h2::after {
 
 /* التجاوبية (Responsive Design) - Media Queries */
 @media (max-width: 768px) {
+    /* **تعديل هنا: لاسم الموقع في الشاشات الصغيرة** */
+    .logo h1 {
+        font-size: 22px; /* تصغير حجم الخط على الشاشات الصغيرة */
+    }
+    .logo img {
+        height: 60px; /* تصغير حجم الشعار قليلاً على الشاشات الصغيرة */
+    }
+    /* **تعديل هنا: للمسافات الأصغر لاسم الموقع** */
+    .logo {
+        gap: 10px;
+    }
+    /* **نهاية التعديل** */
+
     .main-nav .nav-links {
         display: none; /* إخفاء القائمة في الشاشات الصغيرة مبدئيًا */
         flex-direction: column;
@@ -537,13 +565,11 @@ section h2::after {
         left: 0;
         box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         padding: 10px 0;
+        /* **إضافة لتصحيح الـ z-index إذا كانت القائمة تظهر تحت عناصر أخرى** */
+        z-index: 999;
     }
     .main-nav .nav-links.active {
         display: flex; /* إظهار القائمة عند التفعيل */
-    }
-    .main-nav .nav-links li a {
-        padding: 10px 20px;
-        border-bottom: 1px solid #eee;
     }
     .main-nav .dropdown-menu-toggle {
         display: block; /* إظهار أيقونة الهامبرغر */
@@ -585,5 +611,18 @@ section h2::after {
     .main-footer .contact-info i {
         margin-right: 8px; /* ضبط المسافة للأيقونات */
         margin-left: 0;
+    }
+
+    /* **إضافة أخرى لاسم الموقع في الشاشات الأصغر جداً** */
+    @media (max-width: 500px) {
+        .logo {
+            gap: 8px; /* تقليل الفجوة أكثر */
+        }
+        .logo h1 {
+            font-size: 18px; /* تصغير حجم الخط أكثر */
+        }
+        .logo img {
+            height: 50px; /* تصغير حجم الشعار أكثر */
+        }
     }
 }
