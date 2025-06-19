@@ -1,5 +1,5 @@
 
 User-agent: *
 Allow: /
-Sitemap:https://misoonm.github.io/SeaStar/robots.txt
+Sitemap:https://misoonm.github.io/Abodi/robots.txt
 sitemap: https://a452579.sitemaphosting7.com/4549996/sitemap_4549996.xml
