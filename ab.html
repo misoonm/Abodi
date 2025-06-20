@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SeaStar SYSTEM - الصفحة الرئيسية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Basic Resets and Variables */
+        :root {
+            --primary-color: #007bff; /* Example: blue for buttons/highlights */
+            --sidebar-bg: #2b3e50;
+            --header-bg: #ffffff;
+            --text-color: #333;
+            --light-gray: #f8f9fa;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif; /* Or a suitable Arabic font */
+            direction: rtl; /* For right-to-left language */
+            text-align: right;
+            background-color: var(--light-gray);
+            color: var(--text-color);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Styling */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--header-bg);
+            padding: 15px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-left .system-name {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: var(--primary-color);
+        }
+
+        .header-left .slogan {
+            font-size: 0.8em;
+            color: #666;
+            margin-right: 10px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-right .user-info {
+            cursor: pointer;
+            margin-left: 20px;
+            font-weight: bold;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+        .header-right .user-info i {
+            margin-right: 5px; /* Space between text and caret */
+        }
+
+        .header-right .user-role {
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            display: flex;
+            flex: 1; /* Allows it to grow and take available space */
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 250px; /* Fixed width, adjust as needed */
+            background-color: var(--sidebar-bg);
+            color: #fff;
+            padding: 20px 0;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .sidebar-header i {
+            margin-left: 10px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li a {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar-menu li a:hover,
+        .sidebar-menu li.active a {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-menu li a i {
+            margin-left: 15px; /* Space between icon and text */
+            font-size: 1.1em;
+        }
+
+        /* Dashboard Content */
+        .dashboard-content {
+            flex: 1; /* Takes remaining space */
+            padding: 30px;
+            background-color: #f0f2f5;
+        }
+
+        .dashboard-content h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .year-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .year-info i {
+            cursor: pointer;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        /* Stats Cards */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card i {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #fff; /* Icon color for all cards */
+        }
+
+        .card .count {
+            display: block;
+            font-size: 2em;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .card .label {
+            font-size: 0.9em;
+            color: #fff;
+        }
+
+        /* Specific Card Colors */
+        .card-blue { background-color: #007bff; }
+        .card-red { background-color: #dc3545; }
+        .card-green { background-color: #28a745; }
+        .card-purple { background-color: #6f42c1; }
+
+
+        /* University Calendar */
+        .university-calendar {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .university-calendar h3 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+
+        .calendar-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-controls .nav-arrows {
+            display: flex;
+            align-items: center;
+        }
+
+        .calendar-controls i {
+            cursor: pointer;
+            font-size: 1.2em;
+            padding: 5px;
+            color: #555;
+        }
+
+        .calendar-controls .today-button {
+            margin: 0 15px;
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            color: #444;
+        }
+
+        .calendar-controls .current-month {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .calendar-controls .view-controls button {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 8px 15px;
+            margin-left: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .calendar-controls .view-controls button.active {
+            background-color: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+        }
+
+        .calendar-controls .view-controls button:hover:not(.active) {
+            background-color: #e9e9e9;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            overflow: hidden; /* For rounded corners */
+        }
+
+        .day-header {
+            background-color: #f5f5f5;
+            padding: 10px;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color); /* For RTL */
+        }
+        .day-header:last-child {
+            border-left: none;
+        }
+
+        .calendar-day {
+            padding: 15px;
+            min-height: 100px; /* Adjust height as needed */
+            border-bottom: 1px solid var(--border-color);
+            border-left: 1px solid var(--border-color); /* For RTL */
+            text-align: right;
+            font-size: 1.1em;
+            color: #555;
+            cursor: pointer;
+            transition: background-color 0.1s ease;
+        }
+
+        .calendar-day:nth-child(7n) { /* Remove left border for the first day of the week in RTL */
+            border-left: none;
+        }
+
+        .calendar-day.empty {
+            background-color: #fcfcfc;
+            cursor: default;
+        }
+
+        .calendar-day.today {
+            background-color: #e6f2ff; /* Light blue for today */
+            border: 2px solid var(--primary-color);
+            font-weight: bold;
+        }
+
+        .calendar-day:hover:not(.empty) {
+            background-color: #f0f0f0;
+        }
+
+        /* Footer/Status Bar Styling */
+        .footer {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+            color: #777;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Responsive Design (Example - adjust breakpoints as needed) */
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 10px 0;
+                box-shadow: none;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .sidebar-header {
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+            .sidebar-menu {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .sidebar-menu li {
+                margin: 5px 10px;
+            }
+
+            .sidebar-menu li a {
+                padding: 8px 12px;
+                font-size: 0.9em;
+            }
+
+            .dashboard-content {
+                padding: 20px;
+            }
+
+            .stats-cards {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .calendar-grid {
+                font-size: 0.9em;
+            }
+
+            .calendar-day {
+                min-height: 80px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-left">
+                <span class="system-name">SeaStar SYSTEM</span>
+                <span class="slogan">برمجة وإعداد: عامر المؤيد</span>
+            </div>
+            <div class="header-right">
+                <span class="user-info">CI Inspired <i class="fas fa-caret-down"></i></span>
+                <span class="user-role">Sabor Admin</span>
+                </div>
+        </header>
+
+        <main class="main-content">
+            <nav class="sidebar">
+                <div class="sidebar-header">
+                    <i class="fas fa-bars"></i>
+                    <span>لوحة التحكم</span>
+                </div>
+                <ul class="sidebar-menu">
+                    <li><a href="#"><i class="fas fa-home"></i> الصفحة الرئيسية</a></li>
+                    <li><a href="#"><i class="fas fa-graduation-cap"></i> أكاديمي</a></li>
+                    <li><a href="#"><i class="fas fa-money-bill-alt"></i> إدارة الرسوم</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> الطلاب</a></li>
+                    <li><a href="#"><i class="fas fa-database"></i> المستودعات</a></li>
+                    <li><a href="#"><i class="fas fa-grip-horizontal"></i> التخصصات</a></li>
+                    <li><a href="#"><i class="fas fa-building"></i> السكن</a></li>
+                    <li><a href="#"><i class="fas fa-book"></i> الفصول الدراسية</a></li>
+                    <li><a href="#"><i class="fas fa-book-open"></i> المواد</a></li>
+                    <li><a href="#"><i class="fas fa-clipboard-list"></i> الامتحانات</a></li>
+                    <li><a href="#"><i class="fas fa-calendar-alt"></i> الإعدادات</a></li>
+                    <li><a href="#"><i class="fas fa-thumbtack"></i> Pins</a></li>
+                    <li><a href="#"><i class="fas fa-user-circle"></i> حسابي</a></li>
+                </ul>
+            </nav>
+
+            <div class="dashboard-content">
+                <h2>الصفحة الرئيسية</h2>
+                <div class="year-info">
+                    <span>السنة الحالية: 2024-2025</span>
+                    <i class="fas fa-download"></i>
+                </div>
+
+                <div class="stats-cards">
+                    <div class="card card-blue">
+                        <i class="fas fa-users"></i>
+                        <span class="count">40</span>
+                        <span class="label">إجمالي الطلاب</span>
+                    </div>
+                    <div class="card card-red">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span class="count">5</span>
+                        <span class="label">إجمالي المدرسين</span>
+                    </div>
+                    <div class="card card-green">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <span class="count">4</span>
+                        <span class="label">إجمالي المستوي</span>
+                    </div>
+                    <div class="card card-purple">
+                        <i class="fas fa-clipboard-check"></i>
+                        <span class="count">4</span>
+                        <span class="label">إجمالي الأقسام</span>
+                    </div>
+                </div>
+
+                <div class="university-calendar">
+                    <h3>تقويم الاحداث الجامعية</h3>
+                    <div class="calendar-controls">
+                        <div class="nav-arrows">
+                            <i class="fas fa-chevron-left"></i>
+                            <span class="today-button">today</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                        <span class="current-month">June 2025</span>
+                        <div class="view-controls">
+                            <button class="active">month</button>
+                            <button>week</button>
+                            <button>day</button>
+                        </div>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="day-header">Sun</div>
+                        <div class="day-header">Mon</div>
+                        <div class="day-header">Tue</div>
+                        <div class="day-header">Wed</div>
+                        <div class="day-header">Thu</div>
+                        <div class="day-header">Fri</div>
+                        <div class="day-header">Sat</div>
+                        </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-left">
+                <span>&copy; 2025 SeaStar System</span>
+            </div>
+            <div class="footer-right">
+                <select>
+                    <option value="en">ENG</option>
+                    <option value="ar" selected>DE</option> </select>
+                <div class="search-box">
+                    <input type="text" placeholder="بحث...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ----------------- Sidebar Active State -----------------
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+
+            // Function to set active link
+            const setActiveLink = (url) => {
+                sidebarLinks.forEach(link => {
+                    // Check if the link's href matches the current URL or a specific path
+                    if (link.href === url || (url.includes(link.getAttribute('href')) && link.getAttribute('href') !== '#')) {
+                        link.closest('li').classList.add('active');
+                    } else {
+                        link.closest('li').classList.remove('active');
+                    }
+                });
+            };
+
+            // Set initial active link (e.g., if "الصفحة الرئيسية" corresponds to the root URL)
+            // For this example, let's just make the first one active by default or based on a specific URL
+            // For a single page, we can assume "الصفحة الرئيسية" is active
+            const homeLink = document.querySelector('.sidebar-menu li:first-child a');
+            if (homeLink) {
+                homeLink.closest('li').classList.add('active');
+            }
+
+
+            // ----------------- Calendar Functionality -----------------
+            const calendarGrid = document.querySelector('.calendar-grid');
+            const currentMonthDisplay = document.querySelector('.current-month');
+            const prevMonthBtn = document.querySelector('.nav-arrows .fa-chevron-left');
+            const nextMonthBtn = document.querySelector('.nav-arrows .fa-chevron-right');
+            const todayButton = document.querySelector('.today-button');
+
+            let currentDate = new Date(); // Start with today's date
+
+            // Make sure the day of the week matches the image's "June 2025" for demonstration
+            // Current date is June 20, 2025. This falls on a Friday.
+            // The image shows June 2025 with 1 starting on a Sunday. This implies the month is shifted.
+            // Let's ensure the calendar rendering correctly reflects the *actual* June 2025, or matches the image's layout.
+            // As the user asked for "same design as image", we'll simulate the image's calendar.
+            // The image shows June 2025 where 1st is Sunday.
+            // Let's set a specific date for June 2025 to match the visual if needed,
+            // but for a dynamic calendar, it should calculate based on real dates.
+            // For June 2025, the 1st is actually a Sunday. So the current logic is fine for the year 2025.
+
+            const renderCalendar = (date) => {
+                // Remove existing day elements, but keep headers
+                Array.from(calendarGrid.children).forEach(child => {
+                    if (!child.classList.contains('day-header')) {
+                        child.remove();
+                    }
+                });
+
+                const year = date.getFullYear();
+                const month = date.getMonth(); // 0-indexed
+
+                const monthNames = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+                currentMonthDisplay.textContent = `${monthNames[month]} ${year}`;
+
+                // Get the first day of the month (0 = Sunday, 6 = Saturday)
+                const firstDayOfMonth = new Date(year, month, 1).getDay(); // Sunday is 0
+                const daysInMonth = new Date(year, month + 1, 0).getDate(); // Get last day of month
+
+                // Fill in empty days before the first day of the month
+                // The calendar grid starts with Sunday (0), so `firstDayOfMonth` directly gives us the number of empty cells
+                for (let i = 0; i < firstDayOfMonth; i++) {
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.classList.add('calendar-day', 'empty');
+                    calendarGrid.appendChild(emptyDiv);
+                }
+
+                // Fill in days of the month
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.classList.add('calendar-day');
+                    dayDiv.textContent = day;
+
+                    // Mark today's date
+                    const today = new Date();
+                    if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                        dayDiv.classList.add('today');
+                    }
+
+                    // Add event listener for clicking on a day (example)
+                    dayDiv.addEventListener('click', () => {
+                        // Remove 'selected' class from previously selected day
+                        const previouslySelected = calendarGrid.querySelector('.calendar-day.selected');
+                        if (previouslySelected) {
+                            previouslySelected.classList.remove('selected');
+                        }
+                        // Add 'selected' class to the clicked day
+                        dayDiv.classList.add('selected');
+                        console.log(`Clicked on ${day} ${monthNames[month]} ${year}`);
+                        // You can add more complex logic here, like opening a modal for events
+                    });
+
+                    calendarGrid.appendChild(dayDiv);
+                }
+
+                // Fill remaining cells with empty divs to complete the last week row
+                const totalCells = firstDayOfMonth + daysInMonth;
+                const remainingCells = (7 - (totalCells % 7)) % 7; // Calculate remaining cells to fill the last row
+                for (let i = 0; i < remainingCells; i++) {
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.classList.add('calendar-day', 'empty');
+                    calendarGrid.appendChild(emptyDiv);
+                }
+            };
+
+            // Set current date to June 2025 to match image example's month
+            currentDate.setFullYear(2025);
+            currentDate.setMonth(5); // June is month 5 (0-indexed)
+            currentDate.setDate(1); // Set to 1st to ensure correct firstDayOfMonth calculation
+
+            // Initial render
+            renderCalendar(currentDate);
+
+            // Event listeners for navigation
+            prevMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar(currentDate);
+            });
+
+            nextMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar(currentDate);
+            });
+
+            todayButton.addEventListener('click', () => {
+                currentDate = new Date(); // Reset to today
+                currentDate.setFullYear(2025); // Keep it on 2025 as per image
+                currentDate.setMonth(5); // Keep it on June 2025 as per image
+                renderCalendar(currentDate);
+            });
+
+            // ----------------- Calendar View Controls -----------------
+            const viewButtons = document.querySelectorAll('.view-controls button');
+
+            viewButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    viewButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    // Implement logic here to change calendar view (month, week, day)
+                    // For example, you might hide/show different calendar elements
+                    const viewType = button.textContent;
+                    console.log(`Switched to ${viewType} view`);
+                });
+            });
+
+            // ----------------- Other Interactivity (Placeholders) -----------------
+            // Example for header user info dropdown (if you add one)
+            const userInfo = document.querySelector('.user-info');
+            if (userInfo) {
+                userInfo.addEventListener('click', () => {
+                    // Toggle a dropdown menu or navigate
+                    console.log('User info clicked');
+                });
+            }
+
+            // Footer search input focus
+            const searchInput = document.querySelector('.footer .search-box input');
+            const searchIcon = document.querySelector('.footer .search-box .fa-search');
+
+            if (searchInput && searchIcon) {
+                searchIcon.addEventListener('click', () => {
+                    searchInput.focus();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
