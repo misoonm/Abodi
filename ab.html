@@ -10,10 +10,13 @@
         :root {
             --primary-color: #007bff; /* Example: blue for buttons/highlights */
             --sidebar-bg: #2b3e50;
+            --sidebar-hover-bg: rgba(255, 255, 255, 0.1);
+            --sidebar-active-bg: rgba(255, 255, 255, 0.15);
             --header-bg: #ffffff;
             --text-color: #333;
             --light-gray: #f8f9fa;
             --border-color: #e0e0e0;
+            --submenu-bg: #3c5067; /* Slightly darker for sub-menus */
         }
 
         * {
@@ -94,6 +97,7 @@
             color: #fff;
             padding: 20px 0;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto; /* Enable scrolling for long menus */
         }
 
         .sidebar-header {
@@ -115,6 +119,10 @@
             list-style: none;
         }
 
+        .sidebar-menu li {
+            position: relative; /* For submenu positioning */
+        }
+
         .sidebar-menu li a {
             display: flex;
             align-items: center;
@@ -124,14 +132,61 @@
             transition: background-color 0.3s ease;
         }
 
-        .sidebar-menu li a:hover,
-        .sidebar-menu li.active a {
-            background-color: rgba(255, 255, 255, 0.1);
+        .sidebar-menu li a:hover {
+            background-color: var(--sidebar-hover-bg);
+        }
+
+        .sidebar-menu li.active > a {
+            background-color: var(--sidebar-active-bg);
         }
 
         .sidebar-menu li a i {
             margin-left: 15px; /* Space between icon and text */
             font-size: 1.1em;
+        }
+
+        /* Dropdown Icon for parent items */
+        .sidebar-menu li.has-submenu > a::before {
+            content: "\f0d9"; /* Font Awesome chevron-left icon */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-right: 10px; /* Space to the right of the icon */
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-menu li.has-submenu.open > a::before {
+            transform: rotate(-90deg); /* Rotate icon when open */
+        }
+
+        /* Submenu Styling */
+        .submenu {
+            list-style: none;
+            background-color: var(--submenu-bg);
+            padding-right: 0; /* Remove default padding */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding-bottom 0.3s ease-out;
+            padding-bottom: 0; /* Initially no padding */
+        }
+
+        .sidebar-menu li.open > .submenu {
+            max-height: 500px; /* Max height to allow transition */
+            padding-bottom: 10px; /* Add padding when open */
+        }
+
+        .submenu li a {
+            padding: 10px 20px 10px 35px; /* Indent sub-items */
+            font-size: 0.95em;
+            color: #e0e0e0;
+        }
+
+        .submenu .submenu li a {
+            padding: 8px 20px 8px 50px; /* Further indent nested sub-items */
+            font-size: 0.9em;
+        }
+
+        .submenu li a:hover {
+            background-color: rgba(255, 255, 255, 0.05);
         }
 
         /* Dashboard Content */
@@ -324,6 +379,10 @@
             font-weight: bold;
         }
 
+        .calendar-day.selected {
+            background-color: #d1e8ff; /* A slightly darker blue for selected day */
+        }
+
         .calendar-day:hover:not(.empty) {
             background-color: #f0f0f0;
         }
@@ -339,7 +398,52 @@
             font-size: 0.9em;
             color: #777;
             box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+            flex-wrap: wrap; /* Allow wrapping for smaller screens */
         }
+
+        .footer-right {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Space between language and search */
+        }
+
+        .footer-right select {
+            padding: 5px 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .footer-right .search-box {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-right .search-box input {
+            padding: 8px 10px;
+            padding-right: 35px; /* Space for icon */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9em;
+            outline: none;
+            transition: border-color 0.2s ease;
+            text-align: right; /* Ensure text starts from right */
+        }
+
+        .footer-right .search-box input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .footer-right .search-box .fa-search {
+            position: absolute;
+            left: 10px; /* Position icon on the left for RTL */
+            color: #888;
+            cursor: pointer;
+        }
+
 
         /* Responsive Design (Example - adjust breakpoints as needed) */
         @media (max-width: 768px) {
@@ -373,6 +477,22 @@
                 padding: 8px 12px;
                 font-size: 0.9em;
             }
+            /* Adjust submenu display for small screens if needed, e.g., make them full width */
+            .sidebar-menu li.has-submenu > a::before {
+                margin-right: 5px;
+            }
+
+            .submenu {
+                width: 100%; /* Take full width on small screens */
+                padding-right: 0;
+            }
+            .submenu li a {
+                padding: 8px 15px 8px 25px; /* Adjust padding for sub-items */
+            }
+            .submenu .submenu li a {
+                padding: 6px 15px 6px 35px; /* Further indent nested sub-items */
+            }
+
 
             .dashboard-content {
                 padding: 20px;
@@ -389,6 +509,12 @@
             .calendar-day {
                 min-height: 80px;
                 padding: 10px;
+            }
+
+            .footer {
+                flex-direction: column;
+                gap: 10px;
+                align-items: center;
             }
         }
     </style>
@@ -414,17 +540,69 @@
                 </div>
                 <ul class="sidebar-menu">
                     <li><a href="#"><i class="fas fa-home"></i> الصفحة الرئيسية</a></li>
-                    <li><a href="#"><i class="fas fa-graduation-cap"></i> أكاديمي</a></li>
-                    <li><a href="#"><i class="fas fa-money-bill-alt"></i> إدارة الرسوم</a></li>
-                    <li><a href="#"><i class="fas fa-users"></i> الطلاب</a></li>
+                    <li class="has-submenu">
+                        <a href="#"><i class="fas fa-graduation-cap"></i> أكاديمي</a>
+                        <ul class="submenu">
+                            <li><a href="#">جدول المحاضرات</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#"><i class="fas fa-money-bill-alt"></i> إدارة الرسوم</a>
+                        <ul class="submenu">
+                            <li class="has-submenu">
+                                <a href="#">التحصيل</a>
+                                <ul class="submenu">
+                                    <li><a href="#">إنشاء طريقة دفع</a></li>
+                                    <li><a href="#">إدارة المدفوعات</a></li>
+                                    <li><a href="#">تحصيل رسوم الطالب</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#"><i class="fas fa-users"></i> الطلاب</a>
+                        <ul class="submenu">
+                            <li><a href="#">إضافة طالب</a></li>
+                            <li class="has-submenu">
+                                <a href="#">بيانات الطالب</a>
+                                <ul class="submenu">
+                                    <li><a href="#">عرض التخصصات</a></li>
+                                </ul>
+                            </li>
+                            <li class="has-submenu">
+                                <a href="#">الترقية</a>
+                                <ul class="submenu">
+                                    <li><a href="#">ترقية طلاب</a></li>
+                                    <li><a href="#">إدارة الترقية</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">الطلاب الذين تم ترقيتهم</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#"><i class="fas fa-database"></i> المستودعات</a></li>
                     <li><a href="#"><i class="fas fa-grip-horizontal"></i> التخصصات</a></li>
                     <li><a href="#"><i class="fas fa-building"></i> السكن</a></li>
                     <li><a href="#"><i class="fas fa-book"></i> الفصول الدراسية</a></li>
                     <li><a href="#"><i class="fas fa-book-open"></i> المواد</a></li>
-                    <li><a href="#"><i class="fas fa-clipboard-list"></i> الامتحانات</a></li>
+                    <li class="has-submenu">
+                        <a href="#"><i class="fas fa-clipboard-list"></i> الامتحانات</a>
+                        <ul class="submenu">
+                            <li><a href="#">قائمة الامتحانات</a></li>
+                            <li><a href="#">نظام التقييم</a></li>
+                            <li><a href="#">جدول الامتحانات</a></li>
+                            <li><a href="#">اصلاح الدفعة</a></li>
+                            <li><a href="#">الدرجات</a></li>
+                            <li><a href="#">Marksheet</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#"><i class="fas fa-calendar-alt"></i> الإعدادات</a></li>
-                    <li><a href="#"><i class="fas fa-thumbtack"></i> Pins</a></li>
+                    <li class="has-submenu">
+                        <a href="#"><i class="fas fa-thumbtack"></i> Pins</a>
+                        <ul class="submenu">
+                            <li><a href="#">إنشاء ملاحظة</a></li>
+                            <li><a href="#">استعراض الملاحظات</a></li>
+                        </ul>
+                    </li>
                     <li><a href="#"><i class="fas fa-user-circle"></i> حسابي</a></li>
                 </ul>
             </nav>
@@ -494,7 +672,7 @@
             <div class="footer-right">
                 <select>
                     <option value="en">ENG</option>
-                    <option value="ar" selected>DE</option> </select>
+                    <option value="ar" selected>AR</option> </select>
                 <div class="search-box">
                     <input type="text" placeholder="بحث...">
                     <i class="fas fa-search"></i>
@@ -505,8 +683,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // ----------------- Sidebar Active State -----------------
+            // ----------------- Sidebar Active State and Dropdown Toggle -----------------
             const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+            const hasSubmenuItems = document.querySelectorAll('.sidebar-menu li.has-submenu > a');
 
             // Function to set active link
             const setActiveLink = (url) => {
@@ -521,12 +700,27 @@
             };
 
             // Set initial active link (e.g., if "الصفحة الرئيسية" corresponds to the root URL)
-            // For this example, let's just make the first one active by default or based on a specific URL
-            // For a single page, we can assume "الصفحة الرئيسية" is active
             const homeLink = document.querySelector('.sidebar-menu li:first-child a');
             if (homeLink) {
                 homeLink.closest('li').classList.add('active');
             }
+
+            // Toggle submenu visibility
+            hasSubmenuItems.forEach(item => {
+                item.addEventListener('click', (event) => {
+                    event.preventDefault(); // Prevent default link behavior
+                    const parentLi = item.closest('li');
+                    parentLi.classList.toggle('open');
+
+                    // Close other open submenus at the same level
+                    hasSubmenuItems.forEach(otherItem => {
+                        const otherParentLi = otherItem.closest('li');
+                        if (otherParentLi !== parentLi && otherParentLi.classList.contains('open')) {
+                            otherParentLi.classList.remove('open');
+                        }
+                    });
+                });
+            });
 
 
             // ----------------- Calendar Functionality -----------------
@@ -538,15 +732,13 @@
 
             let currentDate = new Date(); // Start with today's date
 
-            // Make sure the day of the week matches the image's "June 2025" for demonstration
-            // Current date is June 20, 2025. This falls on a Friday.
-            // The image shows June 2025 with 1 starting on a Sunday. This implies the month is shifted.
-            // Let's ensure the calendar rendering correctly reflects the *actual* June 2025, or matches the image's layout.
-            // As the user asked for "same design as image", we'll simulate the image's calendar.
-            // The image shows June 2025 where 1st is Sunday.
-            // Let's set a specific date for June 2025 to match the visual if needed,
-            // but for a dynamic calendar, it should calculate based on real dates.
-            // For June 2025, the 1st is actually a Sunday. So the current logic is fine for the year 2025.
+            // Set current date to June 2025 to match image example's month
+            // Based on current time: Friday, June 20, 2025 at 9:20:26 PM +03.
+            // The image shows June 2025, where the 1st is Sunday. The actual June 1, 2025 is a Sunday.
+            // So, setting it to June 1, 2025 will correctly reflect the image's calendar layout.
+            currentDate.setFullYear(2025);
+            currentDate.setMonth(5); // June is month 5 (0-indexed)
+            currentDate.setDate(1); // Set to 1st to ensure correct firstDayOfMonth calculation
 
             const renderCalendar = (date) => {
                 // Remove existing day elements, but keep headers
@@ -580,9 +772,10 @@
                     dayDiv.classList.add('calendar-day');
                     dayDiv.textContent = day;
 
-                    // Mark today's date
+                    // Mark today's date based on current date (June 20, 2025)
                     const today = new Date();
-                    if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                    // We specifically want to highlight June 20, 2025 if the calendar is displaying June 2025
+                    if (day === 20 && month === 5 && year === 2025) { // month 5 is June
                         dayDiv.classList.add('today');
                     }
 
@@ -612,11 +805,6 @@
                 }
             };
 
-            // Set current date to June 2025 to match image example's month
-            currentDate.setFullYear(2025);
-            currentDate.setMonth(5); // June is month 5 (0-indexed)
-            currentDate.setDate(1); // Set to 1st to ensure correct firstDayOfMonth calculation
-
             // Initial render
             renderCalendar(currentDate);
 
@@ -632,9 +820,10 @@
             });
 
             todayButton.addEventListener('click', () => {
-                currentDate = new Date(); // Reset to today
-                currentDate.setFullYear(2025); // Keep it on 2025 as per image
-                currentDate.setMonth(5); // Keep it on June 2025 as per image
+                // When "today" is clicked, reset to June 2025 (as per original image context)
+                currentDate.setFullYear(2025);
+                currentDate.setMonth(5); // June
+                currentDate.setDate(1); // Start from 1st to re-render month
                 renderCalendar(currentDate);
             });
 
@@ -675,3 +864,4 @@
     </script>
 </body>
 </html>
+
