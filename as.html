@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام إدارة الحسابات المالية - الجامعة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #1abc9c;
+            --accent: #3498db;
+            --warning: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --success: #27ae60;
+            --text: #333;
+            --light-text: #fff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --sidebar-width: 260px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* التصميم العام */
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* الشريط الجانبي */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(to bottom, var(--primary), #1a252f);
+            color: var(--light-text);
+            padding: 20px 0;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .logo img {
+            width: 50px;
+            height: 50px;
+            margin-left: 10px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            padding: 8px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .menu {
+            padding: 0 15px;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .menu-item:hover, .menu-item.active {
+            background: rgba(255,255,255,0.1);
+            color: var(--light-text);
+        }
+        
+        .menu-item i {
+            margin-left: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .menu-item span {
+            font-size: 1rem;
+        }
+        
+        /* المحتوى الرئيسي */
+        .main-content {
+            flex: 1;
+            margin-right: var(--sidebar-width);
+            padding: 20px;
+            transition: var(--transition);
+        }
+        
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            margin-bottom: 25px;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: var(--light);
+            border-radius: 30px;
+            padding: 8px 15px;
+            width: 300px;
+        }
+        
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            padding: 5px;
+            font-size: 0.95rem;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+        
+        .notifications {
+            position: relative;
+            margin-left: 20px;
+            font-size: 1.2rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+        
+        .notification-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--warning);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+            object-fit: cover;
+        }
+        
+        /* البطاقات الإحصائية */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+        }
+        
+        .stat-card.students::before {
+            background-color: var(--secondary);
+        }
+        
+        .stat-card.revenue::before {
+            background-color: var(--success);
+        }
+        
+        .stat-card.expenses::before {
+            background-color: var(--warning);
+        }
+        
+        .stat-card.budget::before {
+            background-color: var(--accent);
+        }
+        
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .stat-title {
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .stat-card.students .stat-icon {
+            background-color: rgba(26, 188, 156, 0.2);
+            color: var(--secondary);
+        }
+        
+        .stat-card.revenue .stat-icon {
+            background-color: rgba(39, 174, 96, 0.2);
+            color: var(--success);
+        }
+        
+        .stat-card.expenses .stat-icon {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--warning);
+        }
+        
+        .stat-card.budget .stat-icon {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: var(--accent);
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-change {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+        
+        .stat-change.positive {
+            color: var(--success);
+        }
+        
+        .stat-change.negative {
+            color: var(--warning);
+        }
+        
+        /* الأقسام الرئيسية */
+        .dashboard-section {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            border: none;
+            background-color: var(--accent);
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+        
+        .btn i {
+            margin-left: 5px;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: var(--secondary);
+        }
+        
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+        
+        /* الجداول */
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            padding: 12px 15px;
+            text-align: right;
+            font-weight: 600;
+            color: var(--dark);
+            border-bottom: 2px solid #eee;
+        }
+        
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        tr:hover td {
+            background-color: #f8f9fa;
+        }
+        
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status.paid {
+            background-color: rgba(39, 174, 96, 0.2);
+            color: var(--success);
+        }
+        
+        .status.pending {
+            background-color: rgba(241, 196, 15, 0.2);
+            color: #f39c12;
+        }
+        
+        .status.overdue {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--warning);
+        }
+        
+        /* الرسوم البيانية */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+        
+        .chart-container {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .chart-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .chart-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chart {
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 10px;
+            color: #777;
+            font-weight: 500;
+        }
+        
+        /* الصفحة الرئيسية */
+        .welcome-banner {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 12px;
+            padding: 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+        }
+        
+        .welcome-content {
+            flex: 1;
+        }
+        
+        .welcome-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+        
+        .welcome-text {
+            margin-bottom: 20px;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+        
+        .welcome-image {
+            width: 200px;
+        }
+        
+        /* تفاصيل الطلاب */
+        .student-details {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .student-info {
+            flex: 1;
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .student-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .student-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-left: 15px;
+            object-fit: cover;
+            border: 3px solid var(--secondary);
+        }
+        
+        .student-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+        
+        .student-id {
+            color: #777;
+            margin-top: 5px;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .info-item {
+            margin-bottom: 15px;
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-weight: 500;
+        }
+        
+        /* التنبيهات */
+        .notification-panel {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 350px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            z-index: 2000;
+            padding: 20px;
+            display: none;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .notification-panel.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .notification-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f5f5f5;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .notification-item:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .notification-time {
+            font-size: 0.8rem;
+            color: #777;
+        }
+        
+        /* زر القائمة المتنقلة */
+        .mobile-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1100;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+        
+        /* النماذج */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+        
+        .modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .modal-footer {
+            padding: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* الرسوم المتحركة */
+        @keyframes slideIn {
+            from {
+                transform: translateX(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        /* تصميم متجاوب */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(calc(-1 * var(--sidebar-width)));
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-right: 0;
+            }
+            
+            .mobile-toggle {
+                display: flex;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .welcome-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .welcome-content {
+                margin-bottom: 20px;
+            }
+            
+            .topbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- زر القائمة المتنقلة -->
+    <div class="mobile-toggle">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <div class="dashboard">
+        <!-- الشريط الجانبي -->
+        <div class="sidebar">
+            <div class="logo">
+                <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9IiNmZmYiPjxwYXRoIGQ9Ik0xMiwyQTEwLDEwIDAgMCwwIDIsMTJBMTAsMTAgMCAwLDAgMTIsMjJBMTAsMTAgMCAwLDAgMjIsMTJBMTAsMTAgMCAwLDAgMTIsMk0xMiw0QzE0LjQ4LDQgMTYuNDMsNi4yMiAxNi45LDguODdIMTMuODdWMTEuMTVIMTdWMTIuOTJIMTMuODdWMTUuMkgxNlYxN0g4VjE1LjJIMTAuMTNWOC44N0MxMC41Nyw2LjIyIDEyLjUyLDQgMTUsNFoiLz48L3N2Zz4=" alt="شعار الجامعة">
+                <h1>المالية الجامعية</h1>
+            </div>
+            
+            <div class="menu">
+                <div class="menu-item active" data-target="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>لوحة التحكم</span>
+                </div>
+                <div class="menu-item" data-target="students">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>حسابات الطلاب</span>
+                </div>
+                <div class="menu-item" data-target="payables">
+                    <i class="fas fa-money-check"></i>
+                    <span>الحسابات الدائنة</span>
+                </div>
+                <div class="menu-item" data-target="receivables">
+                    <i class="fas fa-hand-holding-usd"></i>
+                    <span>الحسابات المدينة</span>
+                </div>
+                <div class="menu-item" data-target="ledger">
+                    <i class="fas fa-book"></i>
+                    <span>دفتر الأستاذ</span>
+                </div>
+                <div class="menu-item" data-target="reconciliation">
+                    <i class="fas fa-university"></i>
+                    <span>المطابقة المصرفية</span>
+                </div>
+                <div class="menu-item" data-target="reports">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>التقارير والتحليلات</span>
+                </div>
+                <div class="menu-item" data-target="budget">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>وحدة الموازنة</span>
+                </div>
+                <div class="menu-item" data-target="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>إعدادات النظام</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <!-- الشريط العلوي -->
+            <div class="topbar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="ابحث في النظام...">
+                </div>
+                
+                <div class="user-info">
+                    <div class="notifications" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-count">3</span>
+                    </div>
+                    
+                    <div class="user-profile" id="userProfile">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMzQ5OGRiIj48cGF0aCBkPSJNMTIsMTJBMywzIDAgMCwwIDE1LDlBMywzIDAgMCwwIDEyLDZBMywzIDAgMCwwIDksOUEzLDMgMCAwLDAgMTIsMTJNMTIsMTRBNyA3IDAgMCwwIDUsMjFIMTlBNyA3IDAgMCwwIDEyLDE0WiIvPjwvc3ZnPg==" alt="صورة المستخدم">
+                        <div>
+                            <div>أحمد محمد</div>
+                            <small style="color: #777;">مدير مالي</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- لوحة التنبيهات -->
+            <div class="notification-panel" id="notificationPanel">
+                <div class="notification-header">
+                    <h3>التنبيهات</h3>
+                    <button class="btn btn-sm" id="markAllRead">تحديد الكل كمقروء</button>
+                </div>
+                
+                <div class="notification-item">
+                    <div class="notification-title">طلب جديد لاسترداد الرسوم</div>
+                    <div class="notification-desc">قدم الطالب محمد أحمد طلب استرداد رسوم بقيمة 1,500 ر.س</div>
+                    <div class="notification-time">منذ ساعة</div>
+                </div>
+                
+                <div class="notification-item">
+                    <div class="notification-title">دفعة جديدة</div>
+                    <div class="notification-desc">سارة خالد قامت بدفع 5,000 ر.س عبر البطاقة الائتمانية</div>
+                    <div class="notification-time">منذ 3 ساعات</div>
+                </div>
+                
+                <div class="notification-item">
+                    <div class="notification-title">تذكير بموعد استحقاق</div>
+                    <div class="notification-desc">هناك 12 طالب لديهم مدفوعات متأخرة</div>
+                    <div class="notification-time">منذ 5 ساعات</div>
+                </div>
+            </div>
+            
+            <!-- المحتوى الديناميكي -->
+            <div id="contentArea">
+                <!-- سيتم تحميل المحتوى هنا -->
+            </div>
+            
+            <!-- نموذج إضافة طالب -->
+            <div class="modal" id="studentModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>إضافة طالب جديد</h3>
+                        <button class="btn btn-sm" id="closeStudentModal"><i class="fas fa-times"></i></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>اسم الطالب</label>
+                            <input type="text" id="studentName" placeholder="أدخل الاسم الكامل">
+                        </div>
+                        <div class="form-group">
+                            <label>رقم الطالب</label>
+                            <input type="text" id="studentId" placeholder="أدخل رقم الطالب">
+                        </div>
+                        <div class="form-group">
+                            <label>الكلية</label>
+                            <select id="studentCollege">
+                                <option value="">اختر الكلية</option>
+                                <option value="engineering">كلية الهندسة</option>
+                                <option value="medicine">كلية الطب</option>
+                                <option value="business">كلية إدارة الأعمال</option>
+                                <option value="arts">كلية الآداب</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>التخصص</label>
+                            <input type="text" id="studentMajor" placeholder="أدخل التخصص">
+                        </div>
+                        <div class="form-group">
+                            <label>إجمالي الرسوم (ر.س)</label>
+                            <input type="number" id="studentFees" placeholder="أدخل المبلغ">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" id="saveStudent">حفظ الطالب</button>
+                        <button class="btn btn-secondary" id="cancelStudent">إلغاء</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // البيانات الأولية
+        const dashboardContent = `
+            <!-- صفحة الترحيب -->
+            <div class="welcome-banner">
+                <div class="welcome-content">
+                    <h2 class="welcome-title">مرحباً بك في نظام الإدارة المالية</h2>
+                    <p class="welcome-text">هذه المنصة المتكاملة لإدارة جميع الجوانب المالية للجامعة، من حسابات الطلاب والرسوم إلى إدارة الموازنة والتقارير المالية.</p>
+                    <button class="btn btn-secondary" id="tourBtn">ابدأ جولة في النظام <i class="fas fa-arrow-left"></i></button>
+                </div>
+                <div class="welcome-image">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9IiNmZmYiPjxwYXRoIGQ9Ik0xMiwyQTEwLDEwIDAgMCwwIDIsMTJBMTAsMTAgMCAwLDAgMTIsMjJBMTAsMTAgMCAwLDAgMjIsMTJBMTAsMTAgMCAwLDAgMTIsMk0xMiw0QzE0LjQ4LDQgMTYuNDMsNi4yMiAxNi45LDguODdIMTMuODdWMTEuMTVIMTdWMTIuOTJIMTMuODdWMTUuMkgxNlYxN0g4VjE1LjJIMTAuMTNWOC44N0MxMC41Nyw2LjIyIDEyLjUyLDQgMTUsNFoiLz48L3N2Zz4=" alt="صورة ترحيبية">
+                </div>
+            </div>
+            
+            <!-- البطاقات الإحصائية -->
+            <div class="stats-grid">
+                <div class="stat-card students">
+                    <div class="stat-header">
+                        <div class="stat-title">حسابات الطلاب</div>
+                        <div class="stat-icon">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">8,742</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>12% زيادة عن الشهر الماضي</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card revenue">
+                    <div class="stat-header">
+                        <div class="stat-title">الإيرادات الشهرية</div>
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">4,850,000 ر.س</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>8% زيادة عن الشهر الماضي</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card expenses">
+                    <div class="stat-header">
+                        <div class="stat-title">المصروفات الشهرية</div>
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">3,120,000 ر.س</div>
+                    <div class="stat-change negative">
+                        <i class="fas fa-arrow-down"></i>
+                        <span>5% زيادة عن الشهر الماضي</span>
+                    </div>
+                </div>
+                
+                <div class="stat-card budget">
+                    <div class="stat-header">
+                        <div class="stat-title">الموازنة المتبقية</div>
+                        <div class="stat-icon">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                    </div>
+                    <div class="stat-value">15,200,000 ر.س</div>
+                    <div class="stat-change">
+                        <span>78% من الموازنة السنوية</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- قسم حسابات الطلاب -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2 class="section-title">إدارة حسابات الطلاب والرسوم</h2>
+                    <button class="btn" id="addStudentBtn">
+                        <i class="fas fa-plus"></i> إضافة جديد
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>رقم الطالب</th>
+                                <th>الاسم</th>
+                                <th>البرنامج</th>
+                                <th>إجمالي الرسوم</th>
+                                <th>المدفوع</th>
+                                <th>المتبقي</th>
+                                <th>الحالة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>20231001</td>
+                                <td>محمد أحمد</td>
+                                <td>هندسة الحاسوب</td>
+                                <td>45,000 ر.س</td>
+                                <td>30,000 ر.س</td>
+                                <td>15,000 ر.س</td>
+                                <td><span class="status pending">قيد السداد</span></td>
+                                <td>
+                                    <button class="btn btn-sm view-student" data-id="1">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>20231002</td>
+                                <td>سارة خالد</td>
+                                <td>الطب البشري</td>
+                                <td>80,000 ر.س</td>
+                                <td>80,000 ر.س</td>
+                                <td>0 ر.س</td>
+                                <td><span class="status paid">مسدد بالكامل</span></td>
+                                <td>
+                                    <button class="btn btn-sm view-student" data-id="2">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>20231003</td>
+                                <td>عمر يوسف</td>
+                                <td>إدارة الأعمال</td>
+                                <td>35,000 ر.س</td>
+                                <td>20,000 ر.س</td>
+                                <td>15,000 ر.س</td>
+                                <td><span class="status overdue">متأخر</span></td>
+                                <td>
+                                    <button class="btn btn-sm view-student" data-id="3">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>20231004</td>
+                                <td>لمى عبدالله</td>
+                                <td>الهندسة المعمارية</td>
+                                <td>50,000 ر.س</td>
+                                <td>40,000 ر.س</td>
+                                <td>10,000 ر.س</td>
+                                <td><span class="status pending">قيد السداد</span></td>
+                                <td>
+                                    <button class="btn btn-sm view-student" data-id="4">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- قسم التقارير والتحليلات -->
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2 class="section-title">التقارير والتحليلات المالية</h2>
+                    <div>
+                        <button class="btn" style="margin-left: 10px;">
+                            <i class="fas fa-download"></i> تصدير
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-filter"></i> تصفية
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">الإيرادات والمصروفات (آخر 6 أشهر)</div>
+                            <div class="chart-actions">
+                                <button class="btn" style="padding: 5px 10px;">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <div class="chart-title">توزيع المصروفات</div>
+                            <div class="chart-actions">
+                                <button class="btn" style="padding: 5px 10px;">
+                                    <i class="fas fa-sync"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="chart">
+                            <canvas id="expensesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const studentsContent = `
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2 class="section-title">إدارة حسابات الطلاب</h2>
+                    <button class="btn" id="addStudentBtn">
+                        <i class="fas fa-plus"></i> إضافة طالب
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>رقم الطالب</th>
+                                <th>الاسم</th>
+                                <th>الكلية</th>
+                                <th>التخصص</th>
+                                <th>إجمالي الرسوم</th>
+                                <th>الحالة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>20231001</td>
+                                <td>محمد أحمد</td>
+                                <td>كلية الهندسة</td>
+                                <td>هندسة الحاسوب</td>
+                                <td>45,000 ر.س</td>
+                                <td><span class="status pending">قيد السداد</span></td>
+                                <td>
+                                    <button class="btn btn-sm view-student" data-id="1">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm" style="background-color: var(--success);">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>20231002</td>
+                                <td>سارة خالد</td>
+                                <td>كلية الطب</td>
+                                <td>الطب البشري</td>
+                                <td>80,000 ر.س</td>
+                                <td><span class="status paid">مسدد بالكامل</span></td>
+                                <td>
+                                    <button class="btn btn-sm view-student" data-id="2">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm" style="background-color: var(--success);">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>20231003</td>
+                                <td>عمر يوسف</td>
+                                <td>كلية إدارة الأعمال</td>
+                                <td>المحاسبة</td>
+                                <td>35,000 ر.س</td>
+                                <td><span class="status overdue">متأخر</span></td>
+                                <td>
+                                    <button class="btn btn-sm view-student" data-id="3">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm" style="background-color: var(--success);">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>20231004</td>
+                                <td>لمى عبدالله</td>
+                                <td>كلية الهندسة</td>
+                                <td>الهندسة المعمارية</td>
+                                <td>50,000 ر.س</td>
+                                <td><span class="status pending">قيد السداد</span></td>
+                                <td>
+                                    <button class="btn btn-sm view-student" data-id="4">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm" style="background-color: var(--success);">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+
+        // تفاصيل الطالب
+        const studentDetails = (studentId) => `
+            <div class="student-details">
+                <div class="student-info">
+                    <div class="student-header">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMzQ5OGRiIj48cGF0aCBkPSJNMTIsMTJBMywzIDAgMCwwIDE1LDlBMywzIDAgMCwwIDEyLDZBMywzIDAgMCwwIDksOUEzLDMgMCAwLDAgMTIsMTJNMTIsMTRBNyA3IDAgMCwwIDUsMjFIMTlBNyA3IDAgMCwwIDEyLDE0WiIvPjwvc3ZnPg==" alt="صورة الطالب" class="student-avatar">
+                        <div>
+                            <div class="student-name">${studentId === '1' ? 'محمد أحمد' : studentId === '2' ? 'سارة خالد' : studentId === '3' ? 'عمر يوسف' : 'لمى عبدالله'}</div>
+                            <div class="student-id">رقم الطالب: 2023100${studentId}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">الكلية</div>
+                            <div class="info-value">${studentId === '1' ? 'كلية الهندسة' : studentId === '2' ? 'كلية الطب' : studentId === '3' ? 'كلية إدارة الأعمال' : 'كلية الهندسة'}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">التخصص</div>
+                            <div class="info-value">${studentId === '1' ? 'هندسة الحاسوب' : studentId === '2' ? 'الطب البشري' : studentId === '3' ? 'المحاسبة' : 'الهندسة المعمارية'}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">المستوى</div>
+                            <div class="info-value">${studentId === '1' ? 'السنة الثالثة' : studentId === '2' ? 'السنة الرابعة' : studentId === '3' ? 'السنة الثانية' : 'السنة الثالثة'}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">الحالة الأكاديمية</div>
+                            <div class="info-value">منتظم</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">إجمالي الرسوم</div>
+                            <div class="info-value">${studentId === '1' ? '45,000 ر.س' : studentId === '2' ? '80,000 ر.س' : studentId === '3' ? '35,000 ر.س' : '50,000 ر.س'}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">المدفوع</div>
+                            <div class="info-value">${studentId === '1' ? '30,000 ر.س' : studentId === '2' ? '80,000 ر.س' : studentId === '3' ? '20,000 ر.س' : '40,000 ر.س'}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">المتبقي</div>
+                            <div class="info-value">${studentId === '1' ? '15,000 ر.س' : studentId === '2' ? '0 ر.س' : studentId === '3' ? '15,000 ر.س' : '10,000 ر.س'}</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">تاريخ الاستحقاق</div>
+                            <div class="info-value">١٥/١٢/٢٠٢٣</div>
+                        </div>
+                    </div>
+                    
+                    <div class="section-header" style="margin-top: 20px;">
+                        <h3 class="section-title">سجل الدفعات</h3>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>رقم الإيصال</th>
+                                    <th>التاريخ</th>
+                                    <th>المبلغ</th>
+                                    <th>طريقة الدفع</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>REC-2023-001</td>
+                                    <td>١٠/٠٩/٢٠٢٣</td>
+                                    <td>15,000 ر.س</td>
+                                    <td>تحويل بنكي</td>
+                                </tr>
+                                <tr>
+                                    <td>REC-2023-002</td>
+                                    <td>١٠/٠٨/٢٠٢٣</td>
+                                    <td>15,000 ر.س</td>
+                                    <td>بطاقة ائتمانية</td>
+                                </tr>
+                                ${studentId === '2' ? '' : `
+                                <tr>
+                                    <td>REC-2023-003</td>
+                                    <td>١٠/٠٧/٢٠٢٣</td>
+                                    <td>${studentId === '1' ? '15,000' : studentId === '3' ? '10,000' : '10,000'} ر.س</td>
+                                    <td>نقداً</td>
+                                </tr>
+                                `}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // DOM جاهز
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentArea = document.getElementById('contentArea');
+            const notificationBtn = document.getElementById('notificationBtn');
+            const notificationPanel = document.getElementById('notificationPanel');
+            const markAllRead = document.getElementById('markAllRead');
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            const sidebar = document.querySelector('.sidebar');
+            const menuItems = document.querySelectorAll('.menu-item');
+            const searchInput = document.getElementById('searchInput');
+            const addStudentBtn = document.getElementById('addStudentBtn');
+            const studentModal = document.getElementById('studentModal');
+            const closeStudentModal = document.getElementById('closeStudentModal');
+            const saveStudent = document.getElementById('saveStudent');
+            const cancelStudent = document.getElementById('cancelStudent');
+            
+            // تحميل لوحة التحكم عند البدء
+            contentArea.innerHTML = dashboardContent;
+            initCharts();
+            
+            // التنقل بين القوائم
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // إزالة النشاط من جميع العناصر
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    
+                    // إضافة النشاط للعنصر الحالي
+                    this.classList.add('active');
+                    
+                    // تغيير المحتوى بناءً على العنصر المحدد
+                    const target = this.getAttribute('data-target');
+                    
+                    if (target === 'dashboard') {
+                        contentArea.innerHTML = dashboardContent;
+                        initCharts();
+                        setupEventListeners();
+                    } else if (target === 'students') {
+                        contentArea.innerHTML = studentsContent;
+                        setupEventListeners();
+                    } else {
+                        contentArea.innerHTML = `
+                            <div class="dashboard-section">
+                                <div class="section-header">
+                                    <h2 class="section-title">${this.querySelector('span').textContent}</h2>
+                                </div>
+                                <div style="padding: 50px 20px; text-align: center;">
+                                    <i class="fas fa-cogs" style="font-size: 4rem; color: #3498db; margin-bottom: 20px;"></i>
+                                    <h3>الصفحة قيد التطوير</h3>
+                                    <p>هذه الصفحة قيد التطوير حالياً وسيتم إتاحتها قريباً</p>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+            });
+            
+            // تفعيل لوحة التنبيهات
+            notificationBtn.addEventListener('click', function() {
+                notificationPanel.classList.toggle('show');
+            });
+            
+            // تحديد الكل كمقروء
+            markAllRead.addEventListener('click', function() {
+                document.querySelector('.notification-count').textContent = '0';
+                notificationPanel.classList.remove('show');
+            });
+            
+            // القائمة المتنقلة
+            mobileToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('show');
+            });
+            
+            // البحث
+            searchInput.addEventListener('keyup', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                // في تطبيق حقيقي، سيتم إجراء طلب AJAX هنا
+                if (searchTerm.length > 2) {
+                    alert(`سيتم البحث عن: ${searchTerm}`);
+                }
+            });
+            
+            // إضافة طالب
+            function setupEventListeners() {
+                // إعادة ربط الأزرار بعد تحميل المحتوى
+                const addStudentBtns = document.querySelectorAll('#addStudentBtn');
+                const viewStudentBtns = document.querySelectorAll('.view-student');
+                
+                addStudentBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        studentModal.classList.add('show');
+                    });
+                });
+                
+                viewStudentBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const studentId = this.getAttribute('data-id');
+                        contentArea.innerHTML = studentDetails(studentId);
+                        setupEventListeners();
+                    });
+                });
+            }
+            setupEventListeners();
+            
+            // إغلاق نموذج إضافة طالب
+            closeStudentModal.addEventListener('click', function() {
+                studentModal.classList.remove('show');
+            });
+            
+            cancelStudent.addEventListener('click', function() {
+                studentModal.classList.remove('show');
+            });
+            
+            // حفظ الطالب
+            saveStudent.addEventListener('click', function() {
+                const name = document.getElementById('studentName').value;
+                const id = document.getElementById('studentId').value;
+                
+                if (name && id) {
+                    alert(`تم حفظ الطالب: ${name} (${id})`);
+                    studentModal.classList.remove('show');
+                } else {
+                    alert('الرجاء ملء جميع الحقول المطلوبة');
+                }
+            });
+            
+            // جولة في النظام
+            document.body.addEventListener('click', function(e) {
+                if (e.target.id === 'tourBtn') {
+                    alert('جولة في النظام: سأريك الميزات الرئيسية للنظام...');
+                }
+            });
+            
+            // إغلاق لوحة التنبيهات بالنقر خارجها
+            document.addEventListener('click', function(e) {
+                if (!notificationBtn.contains(e.target) {
+                    notificationPanel.classList.remove('show');
+                }
+            });
+            
+            // الرسوم البيانية
+            function initCharts() {
+                // مخطط الإيرادات والمصروفات
+                const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+                new Chart(revenueCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'],
+                        datasets: [
+                            {
+                                label: 'الإيرادات',
+                                data: [3500000, 4200000, 3800000, 4600000, 4850000, 5200000],
+                                borderColor: '#1abc9c',
+                                backgroundColor: 'rgba(26, 188, 156, 0.1)',
+                                tension: 0.3,
+                                fill: true
+                            },
+                            {
+                                label: 'المصروفات',
+                                data: [2800000, 3200000, 3000000, 3400000, 3120000, 3300000],
+                                borderColor: '#e74c3c',
+                                backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                                tension: 0.3,
+                                fill: true
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                                labels: {
+                                    font: {
+                                        size: 14
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value / 1000000 + ' مليون';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                // مخطط توزيع المصروفات
+                const expensesCtx = document.getElementById('expensesChart').getContext('2d');
+                new Chart(expensesCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['الرواتب', 'الصيانة', 'المرافق', 'اللوازم', 'التطوير'],
+                        datasets: [{
+                            data: [45, 15, 10, 20, 10],
+                            backgroundColor: [
+                                '#3498db',
+                                '#1abc9c',
+                                '#e74c3c',
+                                '#f1c40f',
+                                '#9b59b6'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
