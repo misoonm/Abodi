@@ -3,220 +3,740 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ادارة التخصصات</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
-    <!-- Font Awesome for Icons -->
+    <title>تسجيل طالب جديد</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Select2 CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --success-color: #4cc9f0;
+            --light-bg: #f8f9fa;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+        
         body {
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #2c3e50;
+            padding: 20px;
+            min-height: 100vh;
         }
+        
         .card {
-            margin-top: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border: none;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 30px;
+            overflow: hidden;
+            background: #fff;
         }
-        .nav-tabs-highlight .nav-link.active {
-            background-color: #fff;
-            border-bottom: 3px solid #3b7ddd;
-            color: #3b7ddd;
+        
+        .card-header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-bottom: none;
+            padding: 20px 30px;
+            border-radius: 15px 15px 0 0 !important;
+            position: relative;
         }
-        .nav-tabs .nav-link {
-            color: #495057;
+        
+        .card-header h6 {
+            font-weight: 600;
+            font-size: 1.4rem;
+            margin: 0;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
-        .alert-info {
-            background-color: #e1f0fa;
-            border-color: #b8e2fb;
-            color: #0c5460;
+        
+        .wizard-header {
+            background: #fff;
+            padding: 20px 30px;
+            border-bottom: 1px solid #eee;
         }
-        .form-control, .select2-container--default .select2-selection--single {
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            padding: 8px 12px;
+        
+        .wizard-steps {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0 30px;
+            position: relative;
         }
-        .select2-container--default .select2-selection--single {
-            height: 38px;
+        
+        .wizard-steps:before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #e9ecef;
+            z-index: 1;
         }
-        .select2-container--default .select2-selection__arrow {
-            height: 36px;
+        
+        .step {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            width: 180px;
         }
-        .list-icons-item {
+        
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            background: #e9ecef;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
             color: #6c757d;
+            transition: all 0.3s ease;
         }
-        .dropdown-menu {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        
+        .step.active .step-icon {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
         }
+        
+        .step-title {
+            font-weight: 600;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .step.active .step-title {
+            color: var(--primary-color);
+        }
+        
+        .step-content {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #495057;
+            display: block;
+        }
+        
+        .form-control, .form-select {
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 12px 15px;
+            transition: all 0.3s;
+            height: auto;
+            box-shadow: none;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+        
         .btn-primary {
-            background-color: #3b7ddd;
-            border-color: #3b7ddd;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            border: none;
+            padding: 10px 25px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn-outline-secondary {
+            border-color: #dee2e6;
+            color: #6c757d;
+            border-radius: 8px;
+            padding: 10px 25px;
+            font-weight: 600;
+        }
+        
+        .wizard-navigation {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #eee;
+        }
+        
+        .required-star {
+            color: #e53e3e;
+            margin-right: 4px;
+        }
+        
+        .file-upload {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .file-upload-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #edf2f7;
+            border-radius: 8px;
+            color: #4a5568;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px dashed #cbd5e0;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .file-upload-btn:hover {
+            background: #e2e8f0;
+        }
+        
+        .file-upload-input {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .file-info {
+            font-size: 0.85rem;
+            color: #718096;
+            margin-top: 8px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .wizard-steps {
+                flex-wrap: wrap;
+            }
+            
+            .step {
+                width: 50%;
+                margin-bottom: 20px;
+            }
+            
+            .card-header h6 {
+                font-size: 1.2rem;
+            }
+            
+            .step-content {
+                padding: 20px;
+            }
+            
+            .wizard-navigation {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .wizard-navigation .btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            
+            .step {
+                width: 100%;
+            }
+            
+            .card-header {
+                padding: 15px 20px;
+            }
+        }
+        
+        .form-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #edf2f7;
+        }
+        
+        .form-section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #edf2f7;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="card">
-            <div class="card-header header-elements-inline">
-                <h6 class="card-title">ادراة التخصصات</h6>
-                <div class="header-elements">
-                    <div class="list-icons">
-                        <a class="list-icons-item" data-action="collapse"></a>
-                        <a class="list-icons-item" data-action="reload"></a>
-                        <a class="list-icons-item" data-action="remove"></a>
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-header">
+                        <h6>من فضلك ادخل جميع بيانات الطالب ليتم تسجيله</h6>
                     </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <ul class="nav nav-tabs nav-tabs-highlight">
-                    <li class="nav-item"><a href="#all-classes" class="nav-link active" data-bs-toggle="tab">ادارة التخصصات</a></li>
-                    <li class="nav-item"><a href="#new-class" class="nav-link" data-bs-toggle="tab"><i class="fas fa-plus me-2"></i> انشاء تخصص جديد</a></li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="all-classes">
-                        <table class="table datatable-button-html5-columns">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>الاسم</th>
-                                    <th>نوع التخصص</th>
-                                    <th>ما العمل</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>تخصص علوم الحاسوب</td>
-                                    <td>هندسي</td>
-                                    <td class="text-center">
-                                        <div class="list-icons">
-                                            <div class="dropdown">
-                                                <a href="#" class="list-icons-item" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a href="#" class="dropdown-item"><i class="fas fa-edit me-2"></i>تعديل</a>
-                                                    <a href="#" class="dropdown-item"><i class="fas fa-trash me-2"></i>حذف</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>تخصص الهندسة المدنية</td>
-                                    <td>هندسي</td>
-                                    <td class="text-center">
-                                        <div class="list-icons">
-                                            <div class="dropdown">
-                                                <a href="#" class="list-icons-item" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a href="#" class="dropdown-item"><i class="fas fa-edit me-2"></i>تعديل</a>
-                                                    <a href="#" class="dropdown-item"><i class="fas fa-trash me-2"></i>حذف</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>تخصص الأدب العربي</td>
-                                    <td>أدبي</td>
-                                    <td class="text-center">
-                                        <div class="list-icons">
-                                            <div class="dropdown">
-                                                <a href="#" class="list-icons-item" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></a>
-                                                <div class="dropdown-menu dropdown-menu-end">
-                                                    <a href="#" class="dropdown-item"><i class="fas fa-edit me-2"></i>تعديل</a>
-                                                    <a href="#" class="dropdown-item"><i class="fas fa-trash me-2"></i>حذف</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="tab-pane fade" id="new-class">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="alert alert-info border-0 alert-dismissible fade show">
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                    <span>عندما تقوم بانشاء تخصص جديد سيتم انشاء الفصل الدراسي تلقائيا يمكنك تغييرة او تعديله لاحقا <a target="_blank" href="#">ادارة الفصول الدراسية</a></span>
-                                </div>
+                    
+                    <div class="wizard-header">
+                        <div class="wizard-steps">
+                            <div class="step active" id="step1">
+                                <div class="step-icon">1</div>
+                                <div class="step-title">البيانات الشخصية</div>
+                            </div>
+                            <div class="step" id="step2">
+                                <div class="step-icon">2</div>
+                                <div class="step-title">بيانات الطالب</div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <form id="create-class-form">
-                                    <div class="form-group row mb-3">
-                                        <label class="col-lg-3 col-form-label font-weight-semibold">الاسم<span class="text-danger">*</span></label>
-                                        <div class="col-lg-9">
-                                            <input name="name" type="text" class="form-control" placeholder="ادخل الاسم" required>
+                    </div>
+                    
+                    <form id="student-registration-form">
+                        <!-- الخطوة 1: البيانات الشخصية -->
+                        <div class="step-content" id="step1-content">
+                            <div class="form-section">
+                                <div class="form-section-title">معلومات الهوية</div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <span class="required-star">*</span>الاسم الرباعي:
+                                            </label>
+                                            <input type="text" name="name" class="form-control" placeholder="الاسم مع اللقب" required>
                                         </div>
                                     </div>
-                                    <div class="form-group row mb-3">
-                                        <label for="class_type_id" class="col-lg-3 col-form-label font-weight-semibold">نوع التخصص</label>
-                                        <div class="col-lg-9">
-                                            <select class="form-control select" name="class_type_id" id="class_type_id" required>
-                                                <option value="" disabled selected>اختر نوع التخصص</option>
-                                                <option value="1">هندسي</option>
-                                                <option value="2">أدبي</option>
-                                                <option value="3">علمي</option>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <span class="required-star">*</span>العنوان:
+                                            </label>
+                                            <input type="text" name="address" class="form-control" placeholder="ادخل العنوان" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">الايميل:</label>
+                                            <input type="email" name="email" class="form-control" placeholder="ادخل الايميل اختياري">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <span class="required-star">*</span>الجنس:
+                                            </label>
+                                            <select class="form-select" name="gender" required>
+                                                <option value="">اختر الجنس</option>
+                                                <option value="Male">ذكر</option>
+                                                <option value="Female">انثى</option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="text-end">
-                                        <button type="submit" class="btn btn-primary">متابعة <i class="fas fa-paper-plane ms-2"></i></button>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">رقم الهاتف:</label>
+                                            <input type="tel" name="phone" class="form-control" placeholder="779168887">
+                                        </div>
                                     </div>
-                                </form>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">رقم الوصي:</label>
+                                            <input type="tel" name="phone2" class="form-control" placeholder="779168887">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-section">
+                                <div class="form-section-title">معلومات إضافية</div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">تاريخ الميلاد:</label>
+                                            <input type="text" name="dob" class="form-control date-picker" placeholder="اختر التاريخ...">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <span class="required-star">*</span>الجنسية:
+                                            </label>
+                                            <select class="form-select" name="nal_id" required>
+                                                <option value="">اختر الجنسية</option>
+                                                <option value="1">يمنية</option>
+                                                <option value="2">سعودية</option>
+                                                <option value="3">مصرية</option>
+                                                <option value="4">أردنية</option>
+                                                <option value="5">سورية</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <span class="required-star">*</span>الحالة:
+                                            </label>
+                                            <select class="form-select" name="state_id" id="state_id" required>
+                                                <option value="">اختر الحالة</option>
+                                                <option value="1">صنعاء</option>
+                                                <option value="2">عدن</option>
+                                                <option value="3">تعز</option>
+                                                <option value="4">حضرموت</option>
+                                                <option value="5">الحديدة</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <span class="required-star">*</span>LGA:
+                                            </label>
+                                            <select class="form-select" name="lga_id" id="lga_id" required>
+                                                <option value="">اختر الحالة أولاً</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">فصيلة الدم:</label>
+                                            <select class="form-select" name="bg_id">
+                                                <option value="">اختر فصيلة الدم</option>
+                                                <option value="1">A+</option>
+                                                <option value="2">A-</option>
+                                                <option value="3">B+</option>
+                                                <option value="4">B-</option>
+                                                <option value="5">O+</option>
+                                                <option value="6">O-</option>
+                                                <option value="7">AB+</option>
+                                                <option value="8">AB-</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">صورة الوثيقة:</label>
+                                            <div class="file-upload">
+                                                <div class="file-upload-btn">
+                                                    <i class="fas fa-cloud-upload-alt me-2"></i>اختر ملف
+                                                    <input type="file" name="photo" class="file-upload-input" accept="image/*">
+                                                </div>
+                                                <div class="file-info">اقبل صور من نوع: jpeg, png. بحجم لا يزيد عن 2MB</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                        
+                        <!-- الخطوة 2: بيانات الطالب -->
+                        <div class="step-content d-none" id="step2-content">
+                            <div class="form-section">
+                                <div class="form-section-title">المعلومات الأكاديمية</div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <span class="required-star">*</span>التخصص:
+                                            </label>
+                                            <select class="form-select" name="my_class_id" id="my_class_id" required>
+                                                <option value="">اختر التخصص</option>
+                                                <option value="1">علوم الحاسوب</option>
+                                                <option value="2">الهندسة المدنية</option>
+                                                <option value="3">الطب البشري</option>
+                                                <option value="4">الصيدلة</option>
+                                                <option value="5">اللغة العربية</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <span class="required-star">*</span>الفصل الدراسي:
+                                            </label>
+                                            <select class="form-select" name="section_id" id="section_id" required>
+                                                <option value="">اختر التخصص أولاً</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">الوصي:</label>
+                                            <select class="form-select" name="my_parent_id" id="my_parent_id">
+                                                <option value="">اختر الوصي</option>
+                                                <option value="1">علي أحمد محمد</option>
+                                                <option value="2">سالم عبدالله حسن</option>
+                                                <option value="3">فاطمة عبد الرحمن</option>
+                                                <option value="4">محمد سعيد عمر</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">
+                                                <span class="required-star">*</span>سنة الالتحاق بالكلية:
+                                            </label>
+                                            <select class="form-select" name="year_admitted" id="year_admitted" required>
+                                                <option value="">اختر السنة</option>
+                                                <option value="2023">2023</option>
+                                                <option value="2022">2022</option>
+                                                <option value="2021">2021</option>
+                                                <option value="2020">2020</option>
+                                                <option value="2019">2019</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-section">
+                                <div class="form-section-title">معلومات السكن</div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">السكن:</label>
+                                            <select class="form-select" name="dorm_id" id="dorm_id">
+                                                <option value="">اختر السكن</option>
+                                                <option value="1">سكن الطلاب الرئيسي</option>
+                                                <option value="2">سكن الطالبات الرئيسي</option>
+                                                <option value="3">سكن الخريجين</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">رقم الغرفة:</label>
+                                            <input type="text" name="dorm_room_no" class="form-control" placeholder="اذا كان السكن تبع الكلية">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Sport House:</label>
+                                            <input type="text" name="house" class="form-control" placeholder="Sport House">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">الرقم الأكاديمي:</label>
+                                            <input type="text" name="adm_no" class="form-control" placeholder="اترك الحقل فاضي">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="wizard-navigation">
+                            <button type="button" class="btn btn-outline-secondary" id="prev-btn" disabled>
+                                <i class="fas fa-arrow-right me-2"></i>السابق
+                            </button>
+                            <button type="button" class="btn btn-primary" id="next-btn">
+                                التالي <i class="fas fa-arrow-left ms-2"></i>
+                            </button>
+                            <button type="submit" class="btn btn-success d-none" id="submit-btn">
+                                <i class="fas fa-check me-2"></i>تسجيل الطالب
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Bootstrap JS Bundle (popper.js included) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-    <!-- Select2 JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ar.js"></script>
     <script>
-        // Initialize DataTables
         $(document).ready(function() {
-            $('.datatable-button-html5-columns').DataTable({
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json'
+            // Initialize date picker
+            flatpickr(".date-picker", {
+                locale: "ar",
+                dateFormat: "Y-m-d",
+                allowInput: true
+            });
+            
+            // State and LGA data
+            const stateLgaData = {
+                1: ["مديرية التحرير", "مديرية الصافية", "مديرية السبعين", "مديرية معين", "مديرية الوحدة"],
+                2: ["مديرية المنصورة", "مديرية التواهي", "مديرية الشيخ عثمان", "مديرية خور مكسر", "مديرية دار سعد"],
+                3: ["مديرية القاهرة", "مديرية صالة", "مديرية المشنة", "مديرية المظفر", "مديرية الوازعية"],
+                4: ["مديرية المكلا", "مديرية الشحر", "مديرية غيل باوزير", "مديرية الديس", "مديرية بروم"],
+                5: ["مديرية الحالي", "مديرية الحوك", "مديرية المراوعة", "مديرية الزيدية", "مديرية اللحية"]
+            };
+            
+            // Class and section data
+            const classSectionData = {
+                1: ["الفصل الأول", "الفصل الثاني", "الفصل الثالث", "الفصل الرابع"],
+                2: ["الفصل الأول", "الفصل الثاني", "الفصل الثالث"],
+                3: ["الفصل الأول", "الفصل الثاني", "الفصل الثالث", "الفصل الرابع", "الفصل الخامس"],
+                4: ["الفصل الأول", "الفصل الثاني", "الفصل الثالث", "الفصل الرابع"],
+                5: ["الفصل الأول", "الفصل الثاني"]
+            };
+            
+            // State change handler
+            $('#state_id').change(function() {
+                const stateId = $(this).val();
+                const lgaSelect = $('#lga_id');
+                
+                lgaSelect.empty();
+                lgaSelect.append('<option value="">اختر الحالة أولاً</option>');
+                
+                if (stateId && stateLgaData[stateId]) {
+                    stateLgaData[stateId].forEach((lga, index) => {
+                        lgaSelect.append(`<option value="${index + 1}">${lga}</option>`);
+                    });
                 }
             });
-        });
-
-        // Initialize Select2
-        $(document).ready(function() {
-            $('.select').select2();
-        });
-
-        // Form submission (for demo purposes, just alert)
-        $('#create-class-form').on('submit', function(e) {
-            e.preventDefault();
-            alert('تم إرسال النموذج بنجاح! (هذا عرض تجريبي)');
-            // Here you would normally do an AJAX request to add the class.
-        });
-
-        // Tab activation (using Bootstrap 5)
-        var triggerTabList = [].slice.call(document.querySelectorAll('a[data-bs-toggle="tab"]'));
-        triggerTabList.forEach(function (triggerEl) {
-            var tabTrigger = new bootstrap.Tab(triggerEl);
-            triggerEl.addEventListener('click', function (event) {
-                event.preventDefault();
-                tabTrigger.show();
+            
+            // Class change handler
+            $('#my_class_id').change(function() {
+                const classId = $(this).val();
+                const sectionSelect = $('#section_id');
+                
+                sectionSelect.empty();
+                sectionSelect.append('<option value="">اختر التخصص أولاً</option>');
+                
+                if (classId && classSectionData[classId]) {
+                    classSectionData[classId].forEach((section, index) => {
+                        sectionSelect.append(`<option value="${index + 1}">${section}</option>`);
+                    });
+                }
+            });
+            
+            // Wizard navigation
+            let currentStep = 1;
+            
+            $('#next-btn').click(function() {
+                // Validate current step
+                let isValid = true;
+                $(`#step${currentStep}-content :input[required]`).each(function() {
+                    if (!$(this).val()) {
+                        isValid = false;
+                        $(this).addClass('is-invalid');
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
+                });
+                
+                if (!isValid) {
+                    alert('يرجى ملء جميع الحقول المطلوبة');
+                    return;
+                }
+                
+                // Move to next step
+                $(`#step${currentStep}`).removeClass('active');
+                $(`#step${currentStep}-content`).addClass('d-none');
+                
+                currentStep++;
+                
+                $(`#step${currentStep}`).addClass('active');
+                $(`#step${currentStep}-content`).removeClass('d-none');
+                
+                // Update navigation buttons
+                $('#prev-btn').prop('disabled', false);
+                
+                if (currentStep === 2) {
+                    $('#next-btn').addClass('d-none');
+                    $('#submit-btn').removeClass('d-none');
+                }
+            });
+            
+            $('#prev-btn').click(function() {
+                // Move to previous step
+                $(`#step${currentStep}`).removeClass('active');
+                $(`#step${currentStep}-content`).addClass('d-none');
+                
+                currentStep--;
+                
+                $(`#step${currentStep}`).addClass('active');
+                $(`#step${currentStep}-content`).removeClass('d-none');
+                
+                // Update navigation buttons
+                if (currentStep === 1) {
+                    $('#prev-btn').prop('disabled', true);
+                    $('#next-btn').removeClass('d-none');
+                    $('#submit-btn').addClass('d-none');
+                }
+            });
+            
+            // Form submission
+            $('#student-registration-form').submit(function(e) {
+                e.preventDefault();
+                
+                // Validate final step
+                let isValid = true;
+                $(`#step${currentStep}-content :input[required]`).each(function() {
+                    if (!$(this).val()) {
+                        isValid = false;
+                        $(this).addClass('is-invalid');
+                    } else {
+                        $(this).removeClass('is-invalid');
+                    }
+                });
+                
+                if (!isValid) {
+                    alert('يرجى ملء جميع الحقول المطلوبة');
+                    return;
+                }
+                
+                // Form is valid - show success message
+                const formData = new FormData(this);
+                const formObject = Object.fromEntries(formData.entries());
+                
+                // Simulate form submission
+                alert('تم تسجيل الطالب بنجاح!\n\nسيتم الآن إعادة توجيهك إلى لوحة التحكم.');
+                
+                // Reset form
+                this.reset();
+                $('#lga_id').html('<option value="">اختر الحالة أولاً</option>');
+                $('#section_id').html('<option value="">اختر التخصص أولاً</option>');
+                
+                // Reset wizard to first step
+                $(`#step${currentStep}`).removeClass('active');
+                $(`#step${currentStep}-content`).addClass('d-none');
+                
+                currentStep = 1;
+                
+                $(`#step${currentStep}`).addClass('active');
+                $(`#step${currentStep}-content`).removeClass('d-none');
+                
+                $('#prev-btn').prop('disabled', true);
+                $('#next-btn').removeClass('d-none');
+                $('#submit-btn').addClass('d-none');
+            });
+            
+            // File upload styling
+            $('.file-upload-input').change(function() {
+                const fileName = $(this).val().split('\\').pop();
+                if (fileName) {
+                    $(this).siblings('.file-upload-btn').html(`<i class="fas fa-file me-2"></i>${fileName}`);
+                }
             });
         });
     </script>
