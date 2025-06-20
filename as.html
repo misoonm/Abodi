@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نظام إدارة الحسابات المالية - الجامعة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --primary: #2c3e50;
@@ -19,7 +18,6 @@
             --light-text: #fff;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
-            --sidebar-width: 260px;
         }
         
         * {
@@ -33,7 +31,6 @@
             background-color: #f5f7fa;
             color: var(--text);
             line-height: 1.6;
-            overflow-x: hidden;
         }
         
         /* التصميم العام */
@@ -44,7 +41,7 @@
         
         /* الشريط الجانبي */
         .sidebar {
-            width: var(--sidebar-width);
+            width: 260px;
             background: linear-gradient(to bottom, var(--primary), #1a252f);
             color: var(--light-text);
             padding: 20px 0;
@@ -109,9 +106,8 @@
         /* المحتوى الرئيسي */
         .main-content {
             flex: 1;
-            margin-right: var(--sidebar-width);
+            margin-right: 260px;
             padding: 20px;
-            transition: var(--transition);
         }
         
         .topbar {
@@ -153,7 +149,6 @@
             margin-left: 20px;
             font-size: 1.2rem;
             color: var(--dark);
-            cursor: pointer;
         }
         
         .notification-count {
@@ -175,7 +170,6 @@
             display: flex;
             align-items: center;
             margin-right: 15px;
-            cursor: pointer;
         }
         
         .user-profile img {
@@ -203,12 +197,6 @@
             flex-direction: column;
             position: relative;
             overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
         }
         
         .stat-card::before {
@@ -305,7 +293,6 @@
             box-shadow: var(--shadow);
             padding: 25px;
             margin-bottom: 25px;
-            transition: all 0.3s ease;
         }
         
         .section-header {
@@ -347,11 +334,6 @@
         
         .btn-secondary {
             background-color: var(--secondary);
-        }
-        
-        .btn-sm {
-            padding: 5px 10px;
-            font-size: 0.9rem;
         }
         
         /* الجداول */
@@ -540,179 +522,31 @@
             font-weight: 500;
         }
         
-        /* التنبيهات */
-        .notification-panel {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            width: 350px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            z-index: 2000;
-            padding: 20px;
-            display: none;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-        
-        .notification-panel.show {
-            display: block;
-            animation: slideIn 0.3s ease;
-        }
-        
-        .notification-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .notification-item {
-            padding: 12px 0;
-            border-bottom: 1px solid #f5f5f5;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        
-        .notification-item:hover {
-            background-color: #f9f9f9;
-        }
-        
-        .notification-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .notification-time {
-            font-size: 0.8rem;
-            color: #777;
-        }
-        
-        /* زر القائمة المتنقلة */
-        .mobile-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1100;
-            background: var(--primary);
-            color: white;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: var(--shadow);
-        }
-        
-        /* النماذج */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 3000;
-        }
-        
-        .modal.show {
-            display: flex;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .modal-content {
-            background: white;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .modal-header {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .modal-body {
-            padding: 20px;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-        
-        .modal-footer {
-            padding: 20px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            border-top: 1px solid #eee;
-        }
-        
-        /* الرسوم المتحركة */
-        @keyframes slideIn {
-            from {
-                transform: translateX(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        
         /* تصميم متجاوب */
         @media (max-width: 992px) {
             .sidebar {
-                transform: translateX(calc(-1 * var(--sidebar-width)));
-            }
-            
-            .sidebar.show {
-                transform: translateX(0);
+                width: 70px;
             }
             
             .main-content {
-                margin-right: 0;
+                margin-right: 70px;
             }
             
-            .mobile-toggle {
-                display: flex;
+            .logo h1, .menu-item span {
+                display: none;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            .menu-item {
+                justify-content: center;
+            }
+            
+            .menu-item i {
+                margin-left: 0;
+                font-size: 1.4rem;
             }
             
             .charts-grid {
@@ -742,19 +576,10 @@
             .search-box {
                 width: 100%;
             }
-            
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
 <body>
-    <!-- زر القائمة المتنقلة -->
-    <div class="mobile-toggle">
-        <i class="fas fa-bars"></i>
-    </div>
-    
     <div class="dashboard">
         <!-- الشريط الجانبي -->
         <div class="sidebar">
@@ -764,39 +589,39 @@
             </div>
             
             <div class="menu">
-                <div class="menu-item active" data-target="dashboard">
+                <div class="menu-item active">
                     <i class="fas fa-home"></i>
                     <span>لوحة التحكم</span>
                 </div>
-                <div class="menu-item" data-target="students">
+                <div class="menu-item">
                     <i class="fas fa-user-graduate"></i>
                     <span>حسابات الطلاب</span>
                 </div>
-                <div class="menu-item" data-target="payables">
+                <div class="menu-item">
                     <i class="fas fa-money-check"></i>
                     <span>الحسابات الدائنة</span>
                 </div>
-                <div class="menu-item" data-target="receivables">
+                <div class="menu-item">
                     <i class="fas fa-hand-holding-usd"></i>
                     <span>الحسابات المدينة</span>
                 </div>
-                <div class="menu-item" data-target="ledger">
+                <div class="menu-item">
                     <i class="fas fa-book"></i>
                     <span>دفتر الأستاذ</span>
                 </div>
-                <div class="menu-item" data-target="reconciliation">
+                <div class="menu-item">
                     <i class="fas fa-university"></i>
                     <span>المطابقة المصرفية</span>
                 </div>
-                <div class="menu-item" data-target="reports">
+                <div class="menu-item">
                     <i class="fas fa-chart-bar"></i>
                     <span>التقارير والتحليلات</span>
                 </div>
-                <div class="menu-item" data-target="budget">
+                <div class="menu-item">
                     <i class="fas fa-file-invoice-dollar"></i>
                     <span>وحدة الموازنة</span>
                 </div>
-                <div class="menu-item" data-target="settings">
+                <div class="menu-item">
                     <i class="fas fa-cog"></i>
                     <span>إعدادات النظام</span>
                 </div>
@@ -809,17 +634,17 @@
             <div class="topbar">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="searchInput" placeholder="ابحث في النظام...">
+                    <input type="text" placeholder="ابحث في النظام...">
                 </div>
                 
                 <div class="user-info">
-                    <div class="notifications" id="notificationBtn">
+                    <div class="notifications">
                         <i class="fas fa-bell"></i>
                         <span class="notification-count">3</span>
                     </div>
                     
-                    <div class="user-profile" id="userProfile">
-                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMzQ5OGRiIj48cGF0aCBkPSJNMTIsMTJBMywzIDAgMCwwIDE1LDlBMywzIDAgMCwwIDEyLDZBMywzIDAgMCwwIDksOUEzLDMgMCAwLDAgMTIsMTJNMTIsMTRBNyA3IDAgMCwwIDUsMjFIMTlBNyA3IDAgMCwwIDEyLDE0WiIvPjwvc3ZnPg==" alt="صورة المستخدم">
+                    <div class="user-profile">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMzQ5OGRiIj48cGF0aCBkPSJNMTIsMTJBMywzIDAgMCwwIDE1LDlBMywzIDAgMCwwIDEyLDZBMywzIDAgMCwwIDksOUEzLDMgMCAwLDAgMTIsMTJNMTIsMTRBNyw3IDAgMCwwIDUsMjFIMTlBNyA3IDAgMCwwIDEyLDE0WiIvPjwvc3ZnPg==" alt="صورة المستخدم">
                         <div>
                             <div>أحمد محمد</div>
                             <small style="color: #777;">مدير مالي</small>
@@ -828,90 +653,12 @@
                 </div>
             </div>
             
-            <!-- لوحة التنبيهات -->
-            <div class="notification-panel" id="notificationPanel">
-                <div class="notification-header">
-                    <h3>التنبيهات</h3>
-                    <button class="btn btn-sm" id="markAllRead">تحديد الكل كمقروء</button>
-                </div>
-                
-                <div class="notification-item">
-                    <div class="notification-title">طلب جديد لاسترداد الرسوم</div>
-                    <div class="notification-desc">قدم الطالب محمد أحمد طلب استرداد رسوم بقيمة 1,500 ر.س</div>
-                    <div class="notification-time">منذ ساعة</div>
-                </div>
-                
-                <div class="notification-item">
-                    <div class="notification-title">دفعة جديدة</div>
-                    <div class="notification-desc">سارة خالد قامت بدفع 5,000 ر.س عبر البطاقة الائتمانية</div>
-                    <div class="notification-time">منذ 3 ساعات</div>
-                </div>
-                
-                <div class="notification-item">
-                    <div class="notification-title">تذكير بموعد استحقاق</div>
-                    <div class="notification-desc">هناك 12 طالب لديهم مدفوعات متأخرة</div>
-                    <div class="notification-time">منذ 5 ساعات</div>
-                </div>
-            </div>
-            
-            <!-- المحتوى الديناميكي -->
-            <div id="contentArea">
-                <!-- سيتم تحميل المحتوى هنا -->
-            </div>
-            
-            <!-- نموذج إضافة طالب -->
-            <div class="modal" id="studentModal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>إضافة طالب جديد</h3>
-                        <button class="btn btn-sm" id="closeStudentModal"><i class="fas fa-times"></i></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>اسم الطالب</label>
-                            <input type="text" id="studentName" placeholder="أدخل الاسم الكامل">
-                        </div>
-                        <div class="form-group">
-                            <label>رقم الطالب</label>
-                            <input type="text" id="studentId" placeholder="أدخل رقم الطالب">
-                        </div>
-                        <div class="form-group">
-                            <label>الكلية</label>
-                            <select id="studentCollege">
-                                <option value="">اختر الكلية</option>
-                                <option value="engineering">كلية الهندسة</option>
-                                <option value="medicine">كلية الطب</option>
-                                <option value="business">كلية إدارة الأعمال</option>
-                                <option value="arts">كلية الآداب</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>التخصص</label>
-                            <input type="text" id="studentMajor" placeholder="أدخل التخصص">
-                        </div>
-                        <div class="form-group">
-                            <label>إجمالي الرسوم (ر.س)</label>
-                            <input type="number" id="studentFees" placeholder="أدخل المبلغ">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn" id="saveStudent">حفظ الطالب</button>
-                        <button class="btn btn-secondary" id="cancelStudent">إلغاء</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // البيانات الأولية
-        const dashboardContent = `
             <!-- صفحة الترحيب -->
             <div class="welcome-banner">
                 <div class="welcome-content">
                     <h2 class="welcome-title">مرحباً بك في نظام الإدارة المالية</h2>
                     <p class="welcome-text">هذه المنصة المتكاملة لإدارة جميع الجوانب المالية للجامعة، من حسابات الطلاب والرسوم إلى إدارة الموازنة والتقارير المالية.</p>
-                    <button class="btn btn-secondary" id="tourBtn">ابدأ جولة في النظام <i class="fas fa-arrow-left"></i></button>
+                    <button class="btn btn-secondary">ابدأ جولة في النظام <i class="fas fa-arrow-left"></i></button>
                 </div>
                 <div class="welcome-image">
                     <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGZpbGw9IiNmZmYiPjxwYXRoIGQ9Ik0xMiwyQTEwLDEwIDAgMCwwIDIsMTJBMTAsMTAgMCAwLDAgMTIsMjJBMTAsMTAgMCAwLDAgMjIsMTJBMTAsMTAgMCAwLDAgMTIsMk0xMiw0QzE0LjQ4LDQgMTYuNDMsNi4yMiAxNi45LDguODdIMTMuODdWMTEuMTVIMTdWMTIuOTJIMTMuODdWMTUuMkgxNlYxN0g4VjE1LjJIMTAuMTNWOC44N0MxMC41Nyw2LjIyIDEyLjUyLDQgMTUsNFoiLz48L3N2Zz4=" alt="صورة ترحيبية">
@@ -980,7 +727,7 @@
             <div class="dashboard-section">
                 <div class="section-header">
                     <h2 class="section-title">إدارة حسابات الطلاب والرسوم</h2>
-                    <button class="btn" id="addStudentBtn">
+                    <button class="btn">
                         <i class="fas fa-plus"></i> إضافة جديد
                     </button>
                 </div>
@@ -1009,7 +756,7 @@
                                 <td>15,000 ر.س</td>
                                 <td><span class="status pending">قيد السداد</span></td>
                                 <td>
-                                    <button class="btn btn-sm view-student" data-id="1">
+                                    <button class="btn" style="padding: 5px 10px; font-size: 0.9rem;">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </td>
@@ -1023,7 +770,7 @@
                                 <td>0 ر.س</td>
                                 <td><span class="status paid">مسدد بالكامل</span></td>
                                 <td>
-                                    <button class="btn btn-sm view-student" data-id="2">
+                                    <button class="btn" style="padding: 5px 10px; font-size: 0.9rem;">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </td>
@@ -1037,7 +784,7 @@
                                 <td>15,000 ر.س</td>
                                 <td><span class="status overdue">متأخر</span></td>
                                 <td>
-                                    <button class="btn btn-sm view-student" data-id="3">
+                                    <button class="btn" style="padding: 5px 10px; font-size: 0.9rem;">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </td>
@@ -1051,7 +798,7 @@
                                 <td>10,000 ر.س</td>
                                 <td><span class="status pending">قيد السداد</span></td>
                                 <td>
-                                    <button class="btn btn-sm view-student" data-id="4">
+                                    <button class="btn" style="padding: 5px 10px; font-size: 0.9rem;">
                                         <i class="fas fa-eye"></i>
                                     </button>
                                 </td>
@@ -1086,7 +833,7 @@
                             </div>
                         </div>
                         <div class="chart">
-                            <canvas id="revenueChart"></canvas>
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgNTAwIDMwMCI+PHJlY3Qgd2lkdGg9IjUwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNmOGY5ZmEiLz48cGF0aCBkPSJNNTAgMjUwIEwxMDAgMTUwIEwxNTAgMjAwIEwyMDAgMTAwIEwyNTAgMTUwIEwzMDAgNTAgTDM1MCAxNTAgTDQwMCAxMDAgTDQ1MCAxNTAgTDUwMCA1MCIgc3Ryb2tlPSIjMzQ5OERCIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNNTAgMjAwIEwxMDAgMTAwIEwxNTAgMTUwIEwyMDAgNTAgTDI1MCAxMDAgTDMwMCA1MCBMMzUwIDEwMCBMNDAwIDUwIEw0NTAgMTAwIEw1MDAgMTAwIiBzdHJva2U9IiMxQUJDOTMiIHN0cm9rZS13aWR0aD0iMyIgZmlsbD0ibm9uZSIvPjx0ZXh0IHg9IjQwIiB5PSIyODAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+5bmz5Y+w5YWLPC90ZXh0Pjx0ZXh0IHg9IjQwIiB5PSIyNjAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyI+6K6+6K6h5YWLPC90ZXh0Pjwvc3ZnPg==" alt="رسم بياني">
                         </div>
                     </div>
                     
@@ -1100,421 +847,78 @@
                             </div>
                         </div>
                         <div class="chart">
-                            <canvas id="expensesChart"></canvas>
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiB2aWV3Qm94PSIwIDAgMzAwIDMwMCI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiNmOGY5ZmEiLz48Y2lyY2xlIGN4PSIxNTAiIGN5PSIxNTAiIHI9IjEwMCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZWRlZGVkIiBzdHJva2Utd2lkdGg9IjMiLz48cGF0aCBkPSJNMTUwIDE1MCBMMTUwIDUwIEExMDAgMTAwIDAgMCAxIDE4My42IDExNi40IEwxNTAgMTUwIFoiIGZpbGw9IiMzNDk4REIiLz48cGF0aCBkPSJNMTUwIDE1MCBMMTgzLjYgMTE2LjQgQTEwMCAxMDAgMCAwIDEgMjE1IDg1IEwxNTAgMTUwIFoiIGZpbGw9IiMxQUJDOTMiLz48cGF0aCBkPSJNMTUwIDE1MCBMMjE1IDg1IEExMDAgMTAwIDAgMCAxIDIxNSAyMTUgTDE1MCAxNTAgWiIgZmlsbD0iI0U3NEMzQyIvPjxwYXRoIGQ9Ik0xNTAgMTUwIEwyMTUgMjE1IEExMDAgMTAwIDAgMCAxIDg1IDIxNSBMMTUwIDE1MCBaIiBmaWxsPSIjRjFCQzQxIi8+PHBhdGggZD0iTTE1MCAxNTAgTDg1IDIxNSBBMTAwIDEwMCAwIDAgMSA4NSA4NSBMMTUwIDE1MCBaIiBmaWxsPSIjOUY1OEI2Ii8+PHRleHQgeD0iMTUwIiB5PSIxMzAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzMzMyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+6K6+6K6h5YWLPC90ZXh0Pjwvc3ZnPg==" alt="رسم بياني دائري">
                         </div>
                     </div>
                 </div>
             </div>
-        `;
-
-        const studentsContent = `
-            <div class="dashboard-section">
-                <div class="section-header">
-                    <h2 class="section-title">إدارة حسابات الطلاب</h2>
-                    <button class="btn" id="addStudentBtn">
-                        <i class="fas fa-plus"></i> إضافة طالب
-                    </button>
-                </div>
-                
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>رقم الطالب</th>
-                                <th>الاسم</th>
-                                <th>الكلية</th>
-                                <th>التخصص</th>
-                                <th>إجمالي الرسوم</th>
-                                <th>الحالة</th>
-                                <th>الإجراءات</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>20231001</td>
-                                <td>محمد أحمد</td>
-                                <td>كلية الهندسة</td>
-                                <td>هندسة الحاسوب</td>
-                                <td>45,000 ر.س</td>
-                                <td><span class="status pending">قيد السداد</span></td>
-                                <td>
-                                    <button class="btn btn-sm view-student" data-id="1">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm" style="background-color: var(--success);">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>20231002</td>
-                                <td>سارة خالد</td>
-                                <td>كلية الطب</td>
-                                <td>الطب البشري</td>
-                                <td>80,000 ر.س</td>
-                                <td><span class="status paid">مسدد بالكامل</span></td>
-                                <td>
-                                    <button class="btn btn-sm view-student" data-id="2">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm" style="background-color: var(--success);">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>20231003</td>
-                                <td>عمر يوسف</td>
-                                <td>كلية إدارة الأعمال</td>
-                                <td>المحاسبة</td>
-                                <td>35,000 ر.س</td>
-                                <td><span class="status overdue">متأخر</span></td>
-                                <td>
-                                    <button class="btn btn-sm view-student" data-id="3">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm" style="background-color: var(--success);">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>20231004</td>
-                                <td>لمى عبدالله</td>
-                                <td>كلية الهندسة</td>
-                                <td>الهندسة المعمارية</td>
-                                <td>50,000 ر.س</td>
-                                <td><span class="status pending">قيد السداد</span></td>
-                                <td>
-                                    <button class="btn btn-sm view-student" data-id="4">
-                                        <i class="fas fa-eye"></i>
-                                    </button>
-                                    <button class="btn btn-sm" style="background-color: var(--success);">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        `;
-
-        // تفاصيل الطالب
-        const studentDetails = (studentId) => `
-            <div class="student-details">
-                <div class="student-info">
-                    <div class="student-header">
-                        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMzQ5OGRiIj48cGF0aCBkPSJNMTIsMTJBMywzIDAgMCwwIDE1LDlBMywzIDAgMCwwIDEyLDZBMywzIDAgMCwwIDksOUEzLDMgMCAwLDAgMTIsMTJNMTIsMTRBNyA3IDAgMCwwIDUsMjFIMTlBNyA3IDAgMCwwIDEyLDE0WiIvPjwvc3ZnPg==" alt="صورة الطالب" class="student-avatar">
-                        <div>
-                            <div class="student-name">${studentId === '1' ? 'محمد أحمد' : studentId === '2' ? 'سارة خالد' : studentId === '3' ? 'عمر يوسف' : 'لمى عبدالله'}</div>
-                            <div class="student-id">رقم الطالب: 2023100${studentId}</div>
-                        </div>
-                    </div>
-                    
-                    <div class="info-grid">
-                        <div class="info-item">
-                            <div class="info-label">الكلية</div>
-                            <div class="info-value">${studentId === '1' ? 'كلية الهندسة' : studentId === '2' ? 'كلية الطب' : studentId === '3' ? 'كلية إدارة الأعمال' : 'كلية الهندسة'}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">التخصص</div>
-                            <div class="info-value">${studentId === '1' ? 'هندسة الحاسوب' : studentId === '2' ? 'الطب البشري' : studentId === '3' ? 'المحاسبة' : 'الهندسة المعمارية'}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">المستوى</div>
-                            <div class="info-value">${studentId === '1' ? 'السنة الثالثة' : studentId === '2' ? 'السنة الرابعة' : studentId === '3' ? 'السنة الثانية' : 'السنة الثالثة'}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">الحالة الأكاديمية</div>
-                            <div class="info-value">منتظم</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">إجمالي الرسوم</div>
-                            <div class="info-value">${studentId === '1' ? '45,000 ر.س' : studentId === '2' ? '80,000 ر.س' : studentId === '3' ? '35,000 ر.س' : '50,000 ر.س'}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">المدفوع</div>
-                            <div class="info-value">${studentId === '1' ? '30,000 ر.س' : studentId === '2' ? '80,000 ر.س' : studentId === '3' ? '20,000 ر.س' : '40,000 ر.س'}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">المتبقي</div>
-                            <div class="info-value">${studentId === '1' ? '15,000 ر.س' : studentId === '2' ? '0 ر.س' : studentId === '3' ? '15,000 ر.س' : '10,000 ر.س'}</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">تاريخ الاستحقاق</div>
-                            <div class="info-value">١٥/١٢/٢٠٢٣</div>
-                        </div>
-                    </div>
-                    
-                    <div class="section-header" style="margin-top: 20px;">
-                        <h3 class="section-title">سجل الدفعات</h3>
-                    </div>
-                    
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>رقم الإيصال</th>
-                                    <th>التاريخ</th>
-                                    <th>المبلغ</th>
-                                    <th>طريقة الدفع</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>REC-2023-001</td>
-                                    <td>١٠/٠٩/٢٠٢٣</td>
-                                    <td>15,000 ر.س</td>
-                                    <td>تحويل بنكي</td>
-                                </tr>
-                                <tr>
-                                    <td>REC-2023-002</td>
-                                    <td>١٠/٠٨/٢٠٢٣</td>
-                                    <td>15,000 ر.س</td>
-                                    <td>بطاقة ائتمانية</td>
-                                </tr>
-                                ${studentId === '2' ? '' : `
-                                <tr>
-                                    <td>REC-2023-003</td>
-                                    <td>١٠/٠٧/٢٠٢٣</td>
-                                    <td>${studentId === '1' ? '15,000' : studentId === '3' ? '10,000' : '10,000'} ر.س</td>
-                                    <td>نقداً</td>
-                                </tr>
-                                `}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        `;
-
-        // DOM جاهز
-        document.addEventListener('DOMContentLoaded', function() {
-            const contentArea = document.getElementById('contentArea');
-            const notificationBtn = document.getElementById('notificationBtn');
-            const notificationPanel = document.getElementById('notificationPanel');
-            const markAllRead = document.getElementById('markAllRead');
-            const mobileToggle = document.querySelector('.mobile-toggle');
-            const sidebar = document.querySelector('.sidebar');
-            const menuItems = document.querySelectorAll('.menu-item');
-            const searchInput = document.getElementById('searchInput');
-            const addStudentBtn = document.getElementById('addStudentBtn');
-            const studentModal = document.getElementById('studentModal');
-            const closeStudentModal = document.getElementById('closeStudentModal');
-            const saveStudent = document.getElementById('saveStudent');
-            const cancelStudent = document.getElementById('cancelStudent');
             
-            // تحميل لوحة التحكم عند البدء
-            contentArea.innerHTML = dashboardContent;
-            initCharts();
-            
-            // التنقل بين القوائم
-            menuItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    // إزالة النشاط من جميع العناصر
-                    menuItems.forEach(i => i.classList.remove('active'));
-                    
-                    // إضافة النشاط للعنصر الحالي
-                    this.classList.add('active');
-                    
-                    // تغيير المحتوى بناءً على العنصر المحدد
-                    const target = this.getAttribute('data-target');
-                    
-                    if (target === 'dashboard') {
-                        contentArea.innerHTML = dashboardContent;
-                        initCharts();
-                        setupEventListeners();
-                    } else if (target === 'students') {
-                        contentArea.innerHTML = studentsContent;
-                        setupEventListeners();
-                    } else {
-                        contentArea.innerHTML = `
-                            <div class="dashboard-section">
-                                <div class="section-header">
-                                    <h2 class="section-title">${this.querySelector('span').textContent}</h2>
-                                </div>
-                                <div style="padding: 50px 20px; text-align: center;">
-                                    <i class="fas fa-cogs" style="font-size: 4rem; color: #3498db; margin-bottom: 20px;"></i>
-                                    <h3>الصفحة قيد التطوير</h3>
-                                    <p>هذه الصفحة قيد التطوير حالياً وسيتم إتاحتها قريباً</p>
-                                </div>
+            <!-- مثال لتفاصيل الطالب (مخفية في الصفحة الرئيسية) -->
+            <div style="display: none;">
+                <div class="student-details">
+                    <div class="student-info">
+                        <div class="student-header">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMzQ5OGRiIj48cGF0aCBkPSJNMTIsMTJBMywzIDAgMCwwIDE1LDlBMywzIDAgMCwwIDEyLDZBMywzIDAgMCwwIDksOUEzLDMgMCAwLDAgMTIsMTJNMTIsMTRBNyA3IDAgMCwwIDUsMjFIMTlBNyA3IDAgMCwwIDEyLDE0WiIvPjwvc3ZnPg==" alt="صورة الطالب" class="student-avatar">
+                            <div>
+                                <div class="student-name">محمد أحمد</div>
+                                <div class="student-id">رقم الطالب: 20231001</div>
                             </div>
-                        `;
-                    }
-                });
+                        </div>
+                        
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <div class="info-label">الكلية</div>
+                                <div class="info-value">كلية الهندسة</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">التخصص</div>
+                                <div class="info-value">هندسة الحاسوب</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">المستوى</div>
+                                <div class="info-value">السنة الثالثة</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">الحالة الأكاديمية</div>
+                                <div class="info-value">منتظم</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">إجمالي الرسوم</div>
+                                <div class="info-value">45,000 ر.س</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">المدفوع</div>
+                                <div class="info-value">30,000 ر.س</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">المتبقي</div>
+                                <div class="info-value">15,000 ر.س</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">تاريخ الاستحقاق</div>
+                                <div class="info-value">١٥/١٢/٢٠٢٣</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // تفعيل التنقل بين القوائم
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
             });
-            
-            // تفعيل لوحة التنبيهات
-            notificationBtn.addEventListener('click', function() {
-                notificationPanel.classList.toggle('show');
+        });
+        
+        // محاكاة تغيير حالة الحساب عند الضغط على زر الإجراءات
+        document.querySelectorAll('table .btn').forEach((btn, index) => {
+            btn.addEventListener('click', function() {
+                alert('فتح تفاصيل حساب الطالب رقم ' + (index + 1));
             });
-            
-            // تحديد الكل كمقروء
-            markAllRead.addEventListener('click', function() {
-                document.querySelector('.notification-count').textContent = '0';
-                notificationPanel.classList.remove('show');
-            });
-            
-            // القائمة المتنقلة
-            mobileToggle.addEventListener('click', function() {
-                sidebar.classList.toggle('show');
-            });
-            
-            // البحث
-            searchInput.addEventListener('keyup', function() {
-                const searchTerm = this.value.toLowerCase();
-                
-                // في تطبيق حقيقي، سيتم إجراء طلب AJAX هنا
-                if (searchTerm.length > 2) {
-                    alert(`سيتم البحث عن: ${searchTerm}`);
-                }
-            });
-            
-            // إضافة طالب
-            function setupEventListeners() {
-                // إعادة ربط الأزرار بعد تحميل المحتوى
-                const addStudentBtns = document.querySelectorAll('#addStudentBtn');
-                const viewStudentBtns = document.querySelectorAll('.view-student');
-                
-                addStudentBtns.forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        studentModal.classList.add('show');
-                    });
-                });
-                
-                viewStudentBtns.forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const studentId = this.getAttribute('data-id');
-                        contentArea.innerHTML = studentDetails(studentId);
-                        setupEventListeners();
-                    });
-                });
-            }
-            setupEventListeners();
-            
-            // إغلاق نموذج إضافة طالب
-            closeStudentModal.addEventListener('click', function() {
-                studentModal.classList.remove('show');
-            });
-            
-            cancelStudent.addEventListener('click', function() {
-                studentModal.classList.remove('show');
-            });
-            
-            // حفظ الطالب
-            saveStudent.addEventListener('click', function() {
-                const name = document.getElementById('studentName').value;
-                const id = document.getElementById('studentId').value;
-                
-                if (name && id) {
-                    alert(`تم حفظ الطالب: ${name} (${id})`);
-                    studentModal.classList.remove('show');
-                } else {
-                    alert('الرجاء ملء جميع الحقول المطلوبة');
-                }
-            });
-            
-            // جولة في النظام
-            document.body.addEventListener('click', function(e) {
-                if (e.target.id === 'tourBtn') {
-                    alert('جولة في النظام: سأريك الميزات الرئيسية للنظام...');
-                }
-            });
-            
-            // إغلاق لوحة التنبيهات بالنقر خارجها
-            document.addEventListener('click', function(e) {
-                if (!notificationBtn.contains(e.target) {
-                    notificationPanel.classList.remove('show');
-                }
-            });
-            
-            // الرسوم البيانية
-            function initCharts() {
-                // مخطط الإيرادات والمصروفات
-                const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-                new Chart(revenueCtx, {
-                    type: 'line',
-                    data: {
-                        labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو'],
-                        datasets: [
-                            {
-                                label: 'الإيرادات',
-                                data: [3500000, 4200000, 3800000, 4600000, 4850000, 5200000],
-                                borderColor: '#1abc9c',
-                                backgroundColor: 'rgba(26, 188, 156, 0.1)',
-                                tension: 0.3,
-                                fill: true
-                            },
-                            {
-                                label: 'المصروفات',
-                                data: [2800000, 3200000, 3000000, 3400000, 3120000, 3300000],
-                                borderColor: '#e74c3c',
-                                backgroundColor: 'rgba(231, 76, 60, 0.1)',
-                                tension: 0.3,
-                                fill: true
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'top',
-                                labels: {
-                                    font: {
-                                        size: 14
-                                    }
-                                }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function(value) {
-                                        return value / 1000000 + ' مليون';
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-                
-                // مخطط توزيع المصروفات
-                const expensesCtx = document.getElementById('expensesChart').getContext('2d');
-                new Chart(expensesCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['الرواتب', 'الصيانة', 'المرافق', 'اللوازم', 'التطوير'],
-                        datasets: [{
-                            data: [45, 15, 10, 20, 10],
-                            backgroundColor: [
-                                '#3498db',
-                                '#1abc9c',
-                                '#e74c3c',
-                                '#f1c40f',
-                                '#9b59b6'
-                            ]
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: {
-                                position: 'bottom',
-                                labels: {
-                                    font: {
-                                        size: 12
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
         });
     </script>
 </body>
