@@ -1,1 +1,537 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>موسوعة العقيق اليماني - أحمد اليماني للعقيق اليماني</title>
+    <meta name="keywords" content="العقيق اليماني, متجر العقيق اليماني, أنواع العقيق اليماني, فوائد العقيق اليماني, عقيق يمني أصيل, أحجار كريمة يمانية, شراء العقيق اليماني, معرض العقيق اليماني, أسعار العقيق اليماني, عقيق دموي, عقيق مصور, عقيق كبدي, عقيق شفة العبد, عقيق أبيض, عقيق أسود, تاريخ العقيق اليماني, خصائص العقيق, العقيق الخام, خواتم العقيق, قلادات العقيق, مجوهرات العقيق, صياغة العقيق, خبراء العقيق اليماني, أحمد اليماني للعقيق">
+    <meta name="description" content="موسوعة شاملة عن العقيق اليماني: تاريخه، أنواعه، خصائصه، وفوائده الروحية والجمالية. اكتشف عالم العقيق اليماني الأصيل مع أحمد اليماني.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: #f9f7f1 url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header.main-header {
+            background: linear-gradient(to right, #2c0e0a, #5a1d16);
+            color: #fff;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #c89b5e;
+            margin-left: 15px;
+            object-fit: cover;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #f1d6ad;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Navigation Button for Mobile */
+        .nav-toggle {
+            display: none; /* Hidden by default on desktop */
+            background: none;
+            border: none;
+            color: #f1d6ad;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        nav.main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav.main-nav li {
+            margin: 0 10px;
+        }
+        
+        nav.main-nav a {
+            color: #f1d6ad;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav.main-nav a:hover {
+            background-color: rgba(200, 155, 94, 0.2);
+        }
+        
+        nav.main-nav a.active {
+            background-color: #c89b5e;
+            color: #2c0e0a;
+        }
+        
+        nav.main-nav a.active:after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #c89b5e;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(44, 14, 10, 0.85), rgba(44, 14, 10, 0.85)), 
+                        url('https://images.unsplash.com/photo-1543857778-c4a1a569e7bd?q=80&w=1000') center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #f1d6ad;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #e6e6e6;
+        }
+        
+        /* Section Styles (General for new content) */
+        .content-section {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .content-section h2 {
+            color: #5a1d16;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .content-section h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: #c89b5e;
+            border-radius: 2px;
+        }
+
+        .content-section p, .content-section ul li {
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .content-section ul {
+            list-style: none;
+            padding-right: 20px;
+        }
+
+        .content-section ul li:before {
+            content: "\f00c"; /* Font Awesome check icon */
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            color: #c89b5e;
+            margin-left: 10px;
+        }
+        
+        /* Image in content */
+        .content-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Call to Action for encyclopedia */
+        .encyclopedia-cta {
+            text-align: center;
+            background: linear-gradient(to right, #c89b5e, #f1d6ad);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 50px auto;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            color: #2c0e0a;
+        }
+
+        .encyclopedia-cta h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .encyclopedia-cta p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .encyclopedia-cta .cta-button {
+            background: #2c0e0a;
+            color: #f1d6ad;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .encyclopedia-cta .cta-button:hover {
+            background: #5a1d16;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer.main-footer {
+            background: linear-gradient(to right, #2c0e0a, #5a1d16);
+            color: #f1d6ad;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-info h3, .contact-info h4 {
+            color: #c89b5e;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+        
+        .footer-info p {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(200, 155, 94, 0.2);
+            color: #f1d6ad;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            background: #c89b5e;
+            color: #2c0e0a;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(200, 155, 94, 0.3);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .featured-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: row; /* Keep logo and toggle on same line */
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .logo {
+                margin-bottom: 0;
+            }
+
+            .nav-toggle {
+                display: block; /* Show button on mobile */
+            }
+
+            nav.main-nav {
+                max-height: 0; /* Hide by default */
+                overflow: hidden;
+                transition: max-height 0.5s ease-out;
+                width: 100%;
+                margin-top: 15px; /* Space between logo and expanded menu */
+                background: #5a1d16; /* Background for dropdown menu */
+                border-radius: 8px;
+            }
+
+            nav.main-nav.active {
+                max-height: 300px; /* Adjust as needed for menu height */
+            }
+            
+            nav.main-nav ul {
+                flex-direction: column;
+                padding: 10px 0;
+            }
+            
+            nav.main-nav li {
+                margin: 0;
+                width: 100%;
+                text-align: center;
+            }
+            
+            nav.main-nav a {
+                display: block;
+                padding: 12px 15px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            nav.main-nav li:last-child a {
+                border-bottom: none;
+            }
+
+            nav.main-nav a.active:after {
+                border-top: 8px solid #c89b5e; /* Ensure indicator visible */
+                bottom: 0; /* Adjust position for vertical menu */
+                top: auto;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .featured-intro h2, .content-section h2 {
+                font-size: 2rem;
+            }
+            .content-section {
+                padding: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 50px 20px;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            nav.main-nav a {
+                font-size: 0.9rem;
+                padding: 6px 10px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://via.placeholder.com/60" alt="شعار أحمد اليماني للعقيق اليماني">
+                    <h1>أحمد اليماني للعقيق اليماني</h1>
+                </div>
+                <button class="nav-toggle" aria-label="Toggle navigation menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="agate-encyclopedia.html" class="active">موسوعة العقيق</a></li>
+                        <li><a href="types-of-agate.html">أنواع العقيق</a></li>
+                        <li><a href="shaping-art.html">فن التشكيل</a></li>
+                        <li><a href="gallery.html">معرض الصور</a></li>
+                        <li><a href="featured-pieces.html">القطع المميزة</a></li>
+                        <li><a href="contact.html">تواصل معنا</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1>موسوعة العقيق اليماني الشاملة</h1>
+            <p>دليلك المتكامل لاستكشاف عالم العقيق اليماني: تاريخه، أنواعه، خصائصه، وفوائده.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="content-section">
+            <h2>مقدمة عن العقيق اليماني</h2>
+            <p>يُعدّ العقيق اليماني أحد أقدم وأشهر الأحجار الكريمة في العالم، وله تاريخ عريق يمتد لآلاف السنين، خاصة في اليمن الذي يُعتبر الموطن الأصلي لأجود أنواعه. يشتهر العقيق اليماني بألوانه المتعددة وجماله الطبيعي وخصائصه الفريدة، مما يجعله محط إعجاب الكثيرين من خبراء الأحجار الكريمة وعشاق المجوهرات.</p>
+            <p>لا يقتصر جمال العقيق اليماني على مظهره الجذاب فحسب، بل يُعتقد أيضاً أن له فوائد روحية وطاقية عديدة، وقد ورد ذكره في كتب التاريخ والتراث الديني كحجر مبارك.</p>
+            <img src="https://images.unsplash.com/photo-1596766418840-0255a298f2b7?q=80&w=1000" alt="العقيق الخام في اليمن">
+        </section>
+
+        <section class="content-section">
+            <h2>تاريخ العقيق اليماني العريق</h2>
+            <p>يعود تاريخ استخراج وصياغة العقيق في اليمن إلى عصور ما قبل الإسلام، حيث كان يُستخدم في صناعة الأختام والحلي والتعويذات. ازدهرت تجارته في العصور الإسلامية، ووصل إلى مناطق واسعة من العالم الإسلامي والعالم، وكان يُعتبر من الهدايا الثمينة التي تُقدم للملوك والأمراء.</p>
+            <p>على مر العصور، حافظت اليمن على مكانتها كمركز رئيسي للعقيق، وتوارثت الأجيال فنون استخراجه وتشكليه وتلميعه، لتنتج قطعاً فنية فريدة تعكس الإرث الحضاري لليمن.</p>
+        </section>
+
+        <section class="content-section">
+            <h2>خصائص العقيق اليماني</h2>
+            <p>يتميز العقيق اليماني بتركيبته الكيميائية الفريدة (ثاني أكسيد السيليكون) ودرجة صلابته العالية (7 على مقياس موس)، مما يجعله حجراً متيناً ومقاوماً للخدش. تتنوع ألوانه بشكل كبير وتشمل:</p>
+            <ul>
+                <li>العقيق الأحمر (الكبدي والدموي)</li>
+                <li>العقيق الأسود (شفة العبد)</li>
+                <li>العقيق الأبيض (الليموني)</li>
+                <li>العقيق الأصفر</li>
+                <li>العقيق المزهر (متعدد الألوان)</li>
+                <li>العقيق المصور (يحمل أشكالاً طبيعية)</li>
+            </ul>
+            <p>تعتمد قيمة العقيق اليماني على عدة عوامل منها: اللون، الشفافية، النقاوة، الحجم، وندرة التشكيلات الطبيعية بداخله.</p>
+        </section>
+
+        <section class="content-section">
+            <h2>الفوائد والمعتقدات حول العقيق اليماني</h2>
+            <p>لطالما ارتبط العقيق اليماني بالعديد من المعتقدات والفوائد الروحية والنفسية في الثقافة الشعبية والتراث الديني. يُعتقد أنه يجلب البركة، الحماية من الشرور، ويعزز الشجاعة والهدوء. من أبرز هذه المعتقدات:</p>
+            <ul>
+                <li><strong>جلب البركة والرزق:</strong> يُعتقد أنه يجذب الخير والبركة لحامله.</li>
+                <li><strong>الحماية من الحسد:</strong> يُلبس للحماية من العين والحسد.</li>
+                <li><strong>تهدئة الأعصاب:</strong> يُقال إنه يساعد على جلب الطمأنينة والسكينة وتقليل التوتر.</li>
+                <li><strong>تقوية الثقة بالنفس:</strong> يُعتقد أنه يعزز الشجاعة والثقة بالنفس.</li>
+                <li><strong>توازن الطاقة:</strong> يُستخدم في ممارسات الطاقة لتوازن الهالة.</li>
+            </ul>
+            <p>بغض النظر عن المعتقدات، يظل العقيق اليماني تحفة فنية طبيعية تضفي جمالاً ورونقاً خاصاً على من يمتلكه.</p>
+        </section>
+
+        <div class="encyclopedia-cta">
+            <h3>هل لديك سؤال عن العقيق اليماني؟</h3>
+            <p>فريقنا من خبراء العقيق مستعدون للإجابة على جميع استفساراتك وتقديم المزيد من المعلومات حول هذا الحجر الكريم الفريد.</p>
+            <a href="contact.html" class="cta-button"><i class="fas fa-question-circle"></i> تواصل مع الخبراء الآن</a>
+        </div>
+
+    </div>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>أحمد اليماني للعقيق اليماني</h3>
+                    <p>نقدم لكم أجود أنواع العقيق اليماني الأصيل منذ عام 1995. كل قطعة في متجرنا تم اختيارها بعناية فائقة لتلبي أعلى معايير الجودة والأصالة.</p>
+                    <p>العنوان: صنعاء، دارس، بجانب فندق ابراج المطار</p>
+                    <p>مواعيد العمل: السبت - الخميس، 9:00 صباحًا - 6:00 مساءً</p>
+                </div>
+                
+                <div class="contact-info">
+                    <h4>تواصل معنا</h4>
+                    <p><i class="fas fa-phone-alt"></i> هاتف: 779168887+</p>
+                    <p><i class="fas fa-envelope"></i> بريد إلكتروني: info@ahmedalyamani.com</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/+967775157392"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 أحمد اليماني للعقيق اليماني. جميع الحقوق محفوظة.</p>
+                <p>&copy; تصميم وبرمجة المهندس عبدالله المؤيد.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.querySelector('.nav-toggle');
+            const mainNav = document.querySelector('.main-nav');
+
+            // Toggle navigation menu visibility
+            navToggle.addEventListener('click', function() {
+                mainNav.classList.toggle('active');
+            });
+
+            // Close navigation menu when a link is clicked (for mobile)
+            const navLinks = document.querySelectorAll('.main-nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) { // Only for mobile view
+                        mainNav.classList.remove('active');
+                    }
+                });
+            });
+
+            // Ensure menu state is correct on resize
+            window.addEventListener('resize', function() {
+                if (window.innerWidth > 768) {
+                    mainNav.classList.remove('active'); // Ensure menu is visible on desktop
+                    mainNav.style.maxHeight = ''; // Remove max-height override
+                }
+            });
+        });
+    </script>
+</body>
+</html>
 
