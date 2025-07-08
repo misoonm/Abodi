@@ -1,1 +1,656 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>القطع المميزة - أحمد اليماني للعقيق اليماني</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: #f9f7f1 url('https://www.transparenttextures.com/patterns/cream-paper.png');
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header.main-header {
+            background: linear-gradient(to right, #2c0e0a, #5a1d16);
+            color: #fff;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid #c89b5e;
+            margin-left: 15px;
+            object-fit: cover;
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #f1d6ad;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        nav.main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav.main-nav li {
+            margin: 0 10px;
+        }
+        
+        nav.main-nav a {
+            color: #f1d6ad;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav.main-nav a:hover {
+            background-color: rgba(200, 155, 94, 0.2);
+        }
+        
+        nav.main-nav a.active {
+            background-color: #c89b5e;
+            color: #2c0e0a;
+        }
+        
+        nav.main-nav a.active:after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #c89b5e;
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(44, 14, 10, 0.85), rgba(44, 14, 10, 0.85)), 
+                        url('https://images.unsplash.com/photo-1543857778-c4a1a569e7bd?q=80&w=1000') center/cover;
+            color: #fff;
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 40px;
+        }
+        
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #f1d6ad;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #e6e6e6;
+        }
+        
+        /* Featured Section */
+        .featured-intro {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+        }
+        
+        .featured-intro h2 {
+            color: #5a1d16;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .featured-intro h2:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #c89b5e;
+            border-radius: 2px;
+        }
+        
+        .featured-intro p {
+            max-width: 800px;
+            margin: 20px auto;
+            color: #555;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        /* Featured Products Grid */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 35px;
+            margin: 40px 0;
+        }
+        
+        .featured-item {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            border: 1px solid #eee;
+        }
+        
+        .featured-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .featured-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #c89b5e;
+            color: #2c0e0a;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+        
+        .featured-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            border-bottom: 3px solid #c89b5e;
+        }
+        
+        .featured-details {
+            padding: 25px;
+        }
+        
+        .featured-details h3 {
+            color: #5a1d16;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .featured-description {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            min-height: 100px;
+        }
+        
+        .featured-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px dashed #ddd;
+        }
+        
+        .price-tag {
+            color: #c89b5e;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .buy-btn {
+            background: #5a1d16;
+            color: #f1d6ad;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .buy-btn:hover {
+            background: #2c0e0a;
+            transform: scale(1.05);
+        }
+        
+        /* Special Offer Banner */
+        .special-offer {
+            background: linear-gradient(45deg, #5a1d16, #2c0e0a);
+            color: #fff;
+            text-align: center;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 50px 0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .special-offer:before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+        }
+        
+        .special-offer h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #f1d6ad;
+            position: relative;
+        }
+        
+        .special-offer p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+        
+        .offer-price {
+            font-size: 2.5rem;
+            color: #c89b5e;
+            font-weight: bold;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .offer-timer {
+            background: rgba(200, 155, 94, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 20px auto;
+            position: relative;
+        }
+        
+        /* Footer */
+        footer.main-footer {
+            background: linear-gradient(to right, #2c0e0a, #5a1d16);
+            color: #f1d6ad;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-info h3, .contact-info h4 {
+            color: #c89b5e;
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+        }
+        
+        .footer-info p {
+            margin-bottom: 10px;
+            line-height: 1.8;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(200, 155, 94, 0.2);
+            color: #f1d6ad;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        
+        .social-links a:hover {
+            background: #c89b5e;
+            color: #2c0e0a;
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(200, 155, 94, 0.3);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .featured-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 20px;
+                justify-content: center;
+            }
+            
+            nav.main-nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav.main-nav li {
+                margin: 5px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .featured-intro h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 50px 20px;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav.main-nav a {
+                font-size: 0.9rem;
+                padding: 6px 10px;
+            }
+            
+            .featured-details {
+                padding: 20px;
+            }
+            
+            .featured-price {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .buy-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <img src="https://via.placeholder.com/60" alt="شعار أحمد اليماني للعقيق اليماني">
+                    <h1>أحمد اليماني للعقيق اليماني</h1>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="index.html">الرئيسية</a></li>
+                        <li><a href="#">عن العقيق</a></li>
+                        <li><a href="#">أنواع العقيق</a></li>
+                        <li><a href="#">فن التشكيل</a></li>
+                        <li><a href="gallery.html">معرض الصور</a></li>
+                        <li><a href="bestaqeeq.html" class="active">القطع المميزة</a></li>
+                        <li><a href="#">تواصل معنا</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>القطع المميزة للعقيق اليماني</h1>
+            <p>اكتشف أجمل وأندر قطع العقيق اليماني التي تم اختيارها بعناية فائقة لتمثل روعة وجمال هذا الحجر الكريم</p>
+        </div>
+    </section>
+
+    <!-- Featured Intro -->
+    <section class="featured-intro">
+        <div class="container">
+            <h2>تحف فنية من الطبيعة</h2>
+            <p>نقدم لكم نخبة من أندر وأجمل قطع العقيق اليماني الأصيل، كل قطعة منها تحمل في طياتها جمالاً فريداً وقصة مميزة. تم اختيار هذه القطع بعناية فائقة من قبل خبرائنا لتكون تحف فنية تستحق مكانتها في مجموعتك الخاصة.</p>
+        </div>
+    </section>
+
+    <!-- Featured Products Grid -->
+    <div class="container">
+        <div class="featured-grid">
+            <!-- Product 1 -->
+            <div class="featured-item">
+                <span class="featured-badge">الأكثر مبيعاً</span>
+                <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1000" alt="العقيق الدموي النادر" class="featured-img">
+                <div class="featured-details">
+                    <h3>العقيق الدموي النادر</h3>
+                    <p class="featured-description">قطعة مميزة من العقيق الدموي اليماني الأصيل، تتميز بلونها الأحمر القاني النادر مع نقاوة عالية وتشكيلات طبيعية فريدة. تعكس هذه القطعة روعة وجمال الأحجار الكريمة اليمانية الأصيلة.</p>
+                    <div class="featured-price">
+                        <span class="price-tag">1,850 ريال يمني</span>
+                        <a href="https://wa.me/+967775157392?text=أريد%20شراء%20قطعة%20العقيق%20الدموي%20النادر" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> شراء الآن
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="featured-item">
+                <span class="featured-badge">تحفة نادرة</span>
+                <img src="https://images.unsplash.com/photo-1543857778-c4a1a569e7bd?q=80&w=1000" alt="العقيق المصور الفريد" class="featured-img">
+                <div class="featured-details">
+                    <h3>العقيق المصور الفريد</h3>
+                    <p class="featured-description">عقيق مصور يمني نادر يحمل تشكيلات طبيعية تشبه المناظر الطبيعية. هذه القطعة الفنية الفريدة تجمع بين جمال الطبيعة وإبداع الخالق، وتعتبر تحفة فنية تستحق العرض في أي مجموعة.</p>
+                    <div class="featured-price">
+                        <span class="price-tag">3,200 ريال يمني</span>
+                        <a href="https://wa.me/+967775157392?text=أريد%20شراء%20قطعة%20العقيق%20المصور%20الفريد" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> شراء الآن
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="featured-item">
+                <span class="featured-badge">جديد المعرض</span>
+                <img src="https://images.unsplash.com/photo-1606101754285-7ec03a9e0d2c?q=80&w=1000" alt="العقيق اللحمي الأصيل" class="featured-img">
+                <div class="featured-details">
+                    <h3>العقيق اللحمي الأصيل</h3>
+                    <p class="featured-description">قطعة رائعة من العقيق اللحمي اليماني الأصيل، تتميز بلونها الوردي الطبيعي النادر مع شفافية عالية. تم تشكيل هذه القطعة يدوياً بمهارة فائقة لتعكس جمال الحجر دون تغيير طبيعته.</p>
+                    <div class="featured-price">
+                        <span class="price-tag">1,200 ريال يمني</span>
+                        <a href="https://wa.me/+967775157392?text=أريد%20شراء%20قطعة%20العقيق%20اللحمي%20الأصيل" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> شراء الآن
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 4 -->
+            <div class="featured-item">
+                <span class="featured-badge">تحفة فنية</span>
+                <img src="https://images.unsplash.com/photo-1562690868-60bbe7293e94?q=80&w=1000" alt="العقيق الشفاف النقي" class="featured-img">
+                <div class="featured-details">
+                    <h3>العقيق الشفاف النقي</h3>
+                    <p class="featured-description">عقيق شفاف يمني نادر بدرجة نقاء استثنائية مع تشكيلات طبيعية مميزة. هذه القطعة تتميز بجمالها الباهر وقدرتها على عكس الضوء بشكل ساحر، مما يجعلها تحفة فنية حقيقية.</p>
+                    <div class="featured-price">
+                        <span class="price-tag">2,500 ريال يمني</span>
+                        <a href="https://wa.me/+967775157392?text=أريد%20شراء%20قطعة%20العقيق%20الشفاف%20النقي" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> شراء الآن
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 5 -->
+            <div class="featured-item">
+                <span class="featured-badge">نادر جداً</span>
+                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1000" alt="العقيق متعدد الألوان" class="featured-img">
+                <div class="featured-details">
+                    <h3>العقيق متعدد الألوان</h3>
+                    <p class="featured-description">قطعة نادرة جداً من العقيق اليماني تجمع بين عدة ألوان في حجر واحد مع تشكيلات فريدة. هذه القطعة الاستثنائية تعتبر من أندر أنواع العقيق وتتميز بجمالها الأخاذ وتناغم ألوانها الطبيعية.</p>
+                    <div class="featured-price">
+                        <span class="price-tag">4,800 ريال يمني</span>
+                        <a href="https://wa.me/+967775157392?text=أريد%20شراء%20قطعة%20العقيق%20متعدد%20الألوان" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> شراء الآن
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 6 -->
+            <div class="featured-item">
+                <span class="featured-badge">كلاسيكي مميز</span>
+                <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1000" alt="العقيق الدموي الكلاسيكي" class="featured-img">
+                <div class="featured-details">
+                    <h3>العقيق الدموي الكلاسيكي</h3>
+                    <p class="featured-description">عقيق دموي يمني تقليدي بجودة عالية وتشكيل مميز. هذه القطعة تمثل الجمال الكلاسيكي للعقيق اليماني الأصيل مع لون أحمر عميق ونقاء مذهل، مثالية لهواة الجمع والمحترفين.</p>
+                    <div class="featured-price">
+                        <span class="price-tag">1,500 ريال يمني</span>
+                        <a href="https://wa.me/+967775157392?text=أريد%20شراء%20قطعة%20العقيق%20الدموي%20الكلاسيكي" class="buy-btn">
+                            <i class="fab fa-whatsapp"></i> شراء الآن
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Special Offer -->
+    <div class="container">
+        <div class="special-offer">
+            <h2>عرض خاص لمدة محدودة!</h2>
+            <p>احصل على خصم 15% على جميع القطع المميزة عند الشراء خلال الأسبوع الحالي</p>
+            <div class="offer-price">خصم 15%</div>
+            <div class="offer-timer">
+                <i class="fas fa-clock"></i> ينتهي العرض خلال: 5 أيام و 12 ساعة
+            </div>
+            <a href="https://wa.me/+967775157392?text=أريد%20الاستفادة%20من%20العرض%20الخاص%20على%20القطع%20المميزة" class="buy-btn" style="background: #c89b5e; color: #2c0e0a;">
+                <i class="fab fa-whatsapp"></i> تواصل الآن للاستفادة من العرض
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>أحمد اليماني للعقيق اليماني</h3>
+                    <p>نقدم لكم أجود أنواع العقيق اليماني الأصيل منذ عام 1995. كل قطعة في متجرنا تم اختيارها بعناية فائقة لتلبي أعلى معايير الجودة والأصالة.</p>
+                    <p>العنوان: صنعاء، دارس، بجانب فندق ابراج المطار</p>
+                    <p>مواعيد العمل: السبت - الخميس، 9:00 صباحًا - 6:00 مساءً</p>
+                </div>
+                
+                <div class="contact-info">
+                    <h4>تواصل معنا</h4>
+                    <p><i class="fas fa-phone-alt"></i> هاتف: 779168887+</p>
+                    <p><i class="fas fa-envelope"></i> بريد إلكتروني: info@ahmedalyamani.com</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/+967775157392"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 أحمد اليماني للعقيق اليماني. جميع الحقوق محفوظة.</p>
+                <p>&copy; تصميم وبرمجة المهندس عبدالله المؤيد.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple animation for featured items
+        document.addEventListener('DOMContentLoaded', function() {
+            const featuredItems = document.querySelectorAll('.featured-item');
+            
+            featuredItems.forEach((item, index) => {
+                // Add delay for each item
+                item.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            // Special offer timer (for demonstration)
+            function updateOfferTimer() {
+                const timerElement = document.querySelector('.offer-timer');
+                if(timerElement) {
+                    timerElement.innerHTML = '<i class="fas fa-clock"></i> ينتهي العرض خلال: 5 أيام و 12 ساعة';
+                }
+            }
+            
+            updateOfferTimer();
+        });
+    </script>
+</body>
+</html>
